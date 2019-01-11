@@ -28,4 +28,11 @@
 	- Another agent-based model of opinion spreading, in a network scenario. This one focusses on the spreading of unpopular opinions.
 
 
+- Coevolution of agents and networks: Opinion spreading and community 
+disconnection - Santiago Gil, Damián H. Zanette
 
+	- https://www.sciencedirect.com/science/article/pii/S037596010600418X
+
+	- Discusses how agents can affect each other opinions and even 
+how a network-based model may change the network over time based on 
+similar opinions.
