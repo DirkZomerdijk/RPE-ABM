@@ -1,11 +1,12 @@
 from mesa import Agent
 from utility import *
 import matplotlib.pyplot as plt
+import random
 
-class Person():
+class node():
 
-    def __init__(self, node_id):
-        self.node_id = node_id
-        self.expectation = get_rand_expectation()
+    def get_rand_expectation():
+        mean = 5.5
+        stdev = 5.5/5.5   # 99.73% chance the sample will fall in your desired range
 
-
+        return float("%.2f" % random.gauss(mean, stdev))
