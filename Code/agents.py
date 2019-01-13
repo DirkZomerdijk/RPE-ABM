@@ -14,11 +14,6 @@ class agent(Agent):
         self.convincing_power = type_dict[self.type]
         self.reputation = set_reputation()
 
-<<<<<<< HEAD
-    def talk(self):
-        neighbor_nodes = self.get_neighbor_nodes()
-        # [print(i) for i in neighbor_nodes]
-=======
 
     def talk(self):
         # Get neighbours
@@ -38,7 +33,6 @@ class agent(Agent):
 
                 print(payoff_matrix[choiceA[0]][choiceB][0])
                 break
->>>>>>> 9b744d7105a81cf9a38b8bf534c470e8e0d47989
 
 
     def step(self):

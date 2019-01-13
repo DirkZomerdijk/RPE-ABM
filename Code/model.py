@@ -4,7 +4,6 @@ from mesa.time import RandomActivation
 from agents import *
 from utility import *
 from mesa.space import NetworkGrid
-import random
 
 class Network(Model):
 
@@ -44,9 +43,5 @@ network.step()
 # print(vars(network.G.node[0]['agent'][0]))
 # print(vars(network.G.node[2]['agent'][0]))
 # print(vars(network.G.node[4]['agent'][0]))
-<<<<<<< HEAD
-=======
-
->>>>>>> 9b744d7105a81cf9a38b8bf534c470e8e0d47989
 
 
