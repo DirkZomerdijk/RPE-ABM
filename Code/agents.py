@@ -9,13 +9,12 @@ class agent(Agent):
         super().__init__(unique_id, model)
         self.expectation = get_rand_expectation()
 
-    def get_neighbor_nodes(self):
-        self.self.model.grid.get_neighbors(self.pos, include_center = False)
+
 
 
     def talk(self):
-        neighbor_nodes = get_neighbor_nodes(self)
-        [print(i) for i in neighbor_nodes]
+        neighbor_nodes = self.get_neighbor_nodes()
+        # [print(i) for i in neighbor_nodes]
 
 
     def step(self):
