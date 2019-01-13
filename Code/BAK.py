@@ -79,7 +79,7 @@ def get_payoff_matrix(reputationA,reputationB,convincing_powerA,convincing_power
     return np.array([[reputationA, convincing_powerA], [reputationB,convincing_powerB]])
 
 
-    import networkx as nx
+import networkx as nx
 from mesa import Agent, Model
 from mesa.time import RandomActivation
 from agents import *
