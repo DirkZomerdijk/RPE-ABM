@@ -23,7 +23,11 @@ class agent(Agent):
         # print(self.unique_id)
     # def get_neighbours(self):
 
+<<<<<<< HEAD
 
 
 
 
+=======
+    # def get_neigbor_nodes():
+>>>>>>> 479059b9b13cde3ae3645a8217bd82b53f138ece
