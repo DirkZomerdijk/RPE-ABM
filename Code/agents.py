@@ -9,9 +9,6 @@ class agent(Agent):
         super().__init__(unique_id, model)
         self.expectation = get_rand_expectation()
 
-
-
-
     def talk(self):
         neighbor_nodes = self.get_neighbor_nodes()
         # [print(i) for i in neighbor_nodes]
