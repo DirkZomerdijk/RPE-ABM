@@ -3,10 +3,28 @@ from utility import *
 import matplotlib.pyplot as plt
 import random
 
-class node():
+class agent(Agent):
 
-    def get_rand_expectation():
-        mean = 5.5
-        stdev = 5.5/5.5   # 99.73% chance the sample will fall in your desired range
+    def __init__(self, unique_id, model):
+        super().__init__(unique_id, model)
+        self.expectation = get_rand_expectation()
 
-        return float("%.2f" % random.gauss(mean, stdev))
+    def get_neighbor_nodes(self):
+        self.self.model.grid.get_neighbors(self.pos, include_center = False)
+
+
+    def talk(self):
+        neighbor_nodes = get_neighbor_nodes(self)
+        [print(i) for i in neighbor_nodes]
+
+
+    def step(self):
+        # self.expectation += 1
+        self.talk()
+        # print(self.unique_id)
+    # def get_neighbours(self):
+
+
+
+
+
