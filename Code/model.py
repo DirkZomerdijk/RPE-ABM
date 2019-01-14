@@ -6,21 +6,6 @@ from utility import *
 from mesa.space import NetworkGrid
 
 class Network(Model):
-<<<<<<< HEAD
-    def __init__(self, N):
-        self.num_agents = N
-        self.G = nx.watts_strogatz_graph(20, 2, 0, seed=None)
-        print(self.G.nodes)
-
-        self.num_agents = N
-        self.num_nodes = num_nodes if num_nodes >= self.num_agents else self.num_agents
-        self.G = nx.erdos_renyi_graph(n=self.num_nodes, p=0.5)
-        self.grid = NetworkGrid(self.G)
-        self.schedule = RandomActivation(self)
-
-    def fill_network(self):
-        nx.set_node_attributes(self.G, [node.get_rand_expectation()]*self.num_agents, 'expectation')
-=======
 
     def __init__(self, N):  
         self.num_agents = N
@@ -38,10 +23,10 @@ class Network(Model):
     def step(self):
         self.schedule.step()
 
-    def run_model(self, n):
-        for i in range(n):
-            self.step()
-
+    def run_model(no_of_agents, steps):
+    	network = Network(no_of_agents)
+    	for i in range(steps):
+            network.step()
 
     # def step(self):
     #   self.schedule.step()
@@ -50,15 +35,12 @@ class Network(Model):
 
 
 
-
-network = Network(4)
-network.step()
+Network.run_model(no_of_agents = 4, steps = 1)
 # network.fill_network()
 
 # print(vars(network.G.node[0]['agent'][0]))
 # print(vars(network.G.node[2]['agent'][0]))
 # print(vars(network.G.node[4]['agent'][0]))
->>>>>>> 68b5441bacf5ae1b5d7b970bb381a020aba97cc5
 
 
 
