@@ -23,10 +23,10 @@ class Network(Model):
     def step(self):
         self.schedule.step()
 
-    def run_model(self, n):
-        for i in range(n):
-            self.step()
-
+    def run_model(no_of_agents, steps):
+    	network = Network(no_of_agents)
+    	for i in range(steps):
+            network.step()
 
     # def step(self):
     #   self.schedule.step()
@@ -35,9 +35,7 @@ class Network(Model):
 
 
 
-
-network = Network(4)
-network.step()
+Network.run_model(no_of_agents = 4, steps = 1)
 # network.fill_network()
 
 # print(vars(network.G.node[0]['agent'][0]))
