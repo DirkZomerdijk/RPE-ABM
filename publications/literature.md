@@ -57,5 +57,10 @@ For each step:
 
 - Barabasi-Alberts model
 	- Couldnt find the original paper, but http://barabasi.com/f/622.pdf is useful.
-	- Creates new nodes and interconnects them with a probability based on the degree of every node.
-		- Chance that new node connects to i is P(i) = K<sub>i</sub>/(&Sigma;<sup>N</sup><sub>j=0</sub> K<sub>j</sub>), where K<sub>i</sub> is the degree of node i.
+	- Creates new nodes and interconnects them with a probability based on the degree of every node. Only useful when building the initial network.
+		- Chance that new node connects to i is P(i) = K<sub>i</sub>/(&sum;<sup>N</sup><sub>j=0</sub> K<sub>j</sub>), where K<sub>i</sub> is the degree of node i.
+		- Also check out Bianconi-Barabasi model where fitness is added.
+
+- Watts-Strogatz model
+	- Starts with a circle of nodes with edges between the k closest neighbours. Then randomly rewires all edges. Appearantly very good, but probably not interesting for this project.
+
