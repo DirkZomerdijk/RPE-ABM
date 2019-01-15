@@ -1,5 +1,6 @@
-
+import numpy as np
 import random
+import networkx as nx
 
 def get_expectation_list(N):
     expectation_list = []
@@ -38,3 +39,16 @@ def play_game(payoff_matrix):
         choiceB = np.where(eq[1] == max(eq[1]))[0]
 
         print(payoff_matrix[choiceA[0]][choiceB][0])
+
+
+def compute_expectations(model):
+    agent_expectations = [agent.expectation for agent in model.schedule.agents]
+    return np.mean(agent_expectations)
+
+
+def select_network_type(network_type, N, no_of_neighbors, rand_neighbors):
+    print(network_type)
+    if(network_type == 'watts_strogatz'):
+        return nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
+    elif(network_type == 'barabasi_albert'):
+        return nx.barabasi_albert_graph(N, no_of_neighbors, seed=None)

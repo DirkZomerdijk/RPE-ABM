@@ -10,25 +10,41 @@ from globals import *
 
 def network_portrayal(G):
 
-    portrayal = dict()
-    portrayal['nodes'] = [{'id': node_id,
-                           'size': 3 ,
-                           'color': '#007959',
-                           'label': 'Agent:{} expectation:{}'.format(agents[0].unique_id, agents[0].expectation),
-                           }
-                          for (node_id, agents) in G.nodes.data('agent')]
+  portrayal = dict()
+  portrayal['nodes'] = [{ 'id': node_id,
+                          'Shape': 'circle',
+                          'size': 1 ,
+                          'color': node_color,
+                          # 'label': 'Agent:{} expectation:{}'.format(agents[0].unique_id, agents[0].expectation),
+                          'label': 'expectation:{0:.2f}'.format(agents[0].expectation),
 
-    portrayal['edges'] = [{'id': edge_id,
-                           'source': source,
-                           'target': target,
-                           'color': '#000000',
-                           }
-                          for edge_id, (source, target) in enumerate(G.edges)]
+                        }
+                        for (node_id, agents) in G.nodes.data('agent')]
 
-    return portrayal
+  portrayal['edges'] = [{ 'id': edge_id,
+                          'source': source,
+                          'target': target,
+                          'color': edge_color,
+                        }
+                        for edge_id, (source, target) in enumerate(G.edges)]
 
-grid = NetworkModule(network_portrayal, 500, 500, library='sigma')
-server = ModularServer(Network,
-                       [grid],
-                       "NetworkModel",
-                       {"N": no_of_nodes})
+  return portrayal
+
+
+grid = NetworkModule(network_portrayal, 400, 400, library='sigma')
+chart = ChartModule([{"Label": "expectations",
+                      "Color": "Black"}],
+                    data_collector_name='datacollector')
+
+
+agents_slider = UserSettableParameter('slider', "Number of Agents", 10, 2, 200, 1)
+neighbors_slider = UserSettableParameter('slider', "Number of Neighbors", 3, 2, 10, 1)
+
+model_params = {
+    "N": agents_slider,
+    "no_of_neighbors": neighbors_slider,
+    "network_type": network_type, 
+}  
+
+
+server = ModularServer(Network, [grid,chart], "NetworkModel", model_params) 

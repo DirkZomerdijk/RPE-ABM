@@ -15,7 +15,7 @@ class agent(Agent):
         # [print(i) for i in neighbor_nodes]
         new_expectation = mean_neighbor_expectation(neighbors)
         self.expectation = new_expectation
-        print(self.expectation)
+        # print(self.expectation)
 
     def step(self):
         # self.expectation += 1

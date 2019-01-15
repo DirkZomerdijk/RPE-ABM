@@ -1,13 +1,15 @@
 from model import *  # omit this in jupyter notebooks
 
-# network = Network(5)
-# for i in range(10):
+# network = Network(no_of_nodes, no_of_neighbors)
+# for i in range(no_of_steps):
 #     network.step()
 
 # agent_expectation = network.datacollector.get_agent_vars_dataframe()
 # print(agent_expectation)
+# print(network.datacollector.get_model_vars_dataframe())
 
-# run.py
+# run
 from server import server
-server.port = 8521 # The default
+
+server.port = 8520 # The default
 server.launch()

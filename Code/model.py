@@ -7,11 +7,13 @@ from utility import *
 from mesa.space import NetworkGrid
 from mesa.datacollection import DataCollector
 
+
+
 class Network(Model):
 
-    def __init__(self, N):  
+    def __init__(self, N, no_of_neighbors, network_type):  
         self.num_agents = N
-        self.G = nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
+        self.G = select_network_type(network_type, N, no_of_neighbors, rand_neighbors) #nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
         self.grid = NetworkGrid(self.G)
         self.schedule = RandomActivation(self)
 
@@ -22,18 +24,25 @@ class Network(Model):
             self.grid.place_agent(a, self.node_list[i])
             self.schedule.add(a)
 
-        self.datacollector = DataCollector(agent_reporters={"expectation": "expectation"}) 
+        self.datacollector = DataCollector(
+            model_reporters={
+                "expectations": compute_expectations
+            },
+            agent_reporters={
+                "expectation": "expectation",
+            }) 
+
         self.running = True
     
 
     def step(self):
         self.datacollector.collect(self)
         self.schedule.step()
-        print("new step")
+        # print("new step")
 
-    def run_model(self, n):
-        for i in range(n):
-            self.step()
+    # def run_model(self, n):
+    #     for i in range(n):
+    #         self.step()
 
 
     # def step(self):
