@@ -1,32 +1,24 @@
 ## Prediction error
 
 - The Paranoid Optimist: An Integrative Evolutionary Model of Cognitive Biases - Martie G. Haselton, Daniel Nettle
-
 	- https://journals.sagepub.com/doi/pdf/10.1207/s15327957pspr1001_3
-
 	- Review paper of Prediction error modelling and its implementations. Also shows some mathematical basis, but that might not be suited for opinion spreading.
 
 
 ## Opinion spreading
 
 - OPINION EVOLUTION IN CLOSED COMMUNITY - KATARZYNA SZNAJD-WERON
-
 	- https://www.worldscientific.com/doi/pdf/10.1142/S0129183100000936
-
 	- Describes the Sznajd model for agent based opinion spreading built on the Ising model. It's an approach different from ours, but may be inspirational.
 
 
 - OPINION SPREADING AND CONSENSUS FORMATION ON SQUARE LATTICE - JIAN-GUO LIU , ZHI-XI WU and FENG WANG
-
 	- https://www.worldscientific.com/doi/pdfplus/10.1142/S0129183107011145?casa_token=Qr-ekFcWmCEAAAAA:wfvY77_pTl9tOCO5Z128IYixF8oN4bc5GjBknEPL1kKULyxc1l9HdUbEACJ5XYDz9rmTkv-g0p0
-
 	- Basic agent-based model for opinion spreading. Could be useful for inspiration.
 
 
 - Network Models of Minority Opinion Spreading: Using Agent-Based Modeling to Study Possible Scenarios of Social Contagion - Javier Alvarez-Galvez
-
 	- https://journals.sagepub.com/doi/pdf/10.1177/0894439315605607?casa_token=M2Q4h2HEfWQAAAAA%3AIZvA6whTROB7VpMU-dM4X1E6-EidIWe9o9cJu8rDrW7XLm5HK55pCDAZElCRQzSHVmADhzpedn7z
-
 	- Another agent-based model of opinion spreading, in a network scenario. This one focusses on the spreading of unpopular opinions.
 
 
@@ -34,9 +26,7 @@
 
 - Coevolution of agents and networks: Opinion spreading and community 
 disconnection - Santiago Gil, Damián H. Zanette
-
 	- https://www.sciencedirect.com/science/article/pii/S037596010600418X
-
 	- Discusses how agents can affect each other opinions and even 
 how a network-based model may change the network over time based on 
 similar opinions.
@@ -64,3 +54,7 @@ For each step:
 - Watts-Strogatz model
 	- Starts with a circle of nodes with edges between the k closest neighbours. Then randomly rewires all edges. Appearantly very good, but probably not interesting for this project.
 
+
+- Damage Spreading and Opinion Dynamics on Scale Free Networks - Santo Fortunato
+	- https://arxiv.org/pdf/cond-mat/0405083.pdf
+	- Constructed a Barabasi-Alberts model, and initiated random opinions on interval [0,1]. Every neighbouring agent shares opinion s<sub>i</sub> with j only when |s<sub>i</sub> - s<sub>j</sub>|<&epsilon;, where &epsilon; was set to 0.5 in this case.
