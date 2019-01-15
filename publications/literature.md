@@ -58,3 +58,16 @@ For each step:
 - Damage Spreading and Opinion Dynamics on Scale Free Networks - Santo Fortunato
 	- https://arxiv.org/pdf/cond-mat/0405083.pdf
 	- Constructed a Barabasi-Alberts model, and initiated random opinions on interval [0,1]. Every neighbouring agent shares opinion s<sub>i</sub> with j only when |s<sub>i</sub> - s<sub>j</sub>|<&epsilon;, where &epsilon; was set to 0.5 in this case.
+
+- OPINION DYNAMICS AND BOUNDED CONFIDENCE MODELS, ANALYSIS, AND SIMULATION - Rainer Hegselmann 
+	- https://www.math.fsu.edu/~dgalvis/journalclub/papers/02_05_2017.pdf
+	- Describes dynamics of several opinion spreading models, but I dont get the math. 
+
+- CONTINUOUS OPINION DYNAMICS UNDER BOUNDED CONFIDENCE: A SURVEY - JAN LORENZ
+	- https://www.worldscientific.com/doi/pdfplus/10.1142/S0129183107011789?casa_token=1cmqrEeTgL0AAAAA:7u0ENlcrv-KSoc3gBp-4KJo2CnZ49IEkIE-0_kHLIcxgfS9Xt7G4WOxpGjrP_JwQmpgjNEHbuPY
+	- opinion dynamics according to the Deffuant-Weisbuch model and the Hegselmann-Krausse model
+	- Like other articles describe, the similarity in opinion will affect the consequence.
+		- In case of the DW-model, if opinions i and j are similar, they both become the average of the two, else, nothing happens. We can easily make a hawk-dove game were the probability to be hawk or dove relies on the difference in opinion, where two doves try to find a middle ground, hawks direct doves to new opinions and hawks become polarised when they meet each other as they are not willing to agree and therefore tend to radicalize.
+		- In case of the HK-model, opinion i becomes the average of all opinions that do not differ more than &epsilon;.
+
+- There is a bunch of Ising-model-based-models which state that the opinion-change depends on the number of neighbours with a certain opinion. Although I think that these models are not entriely suited to this project, we may eventually implement such an effect. (See the Sznajd-model under the second header.)
