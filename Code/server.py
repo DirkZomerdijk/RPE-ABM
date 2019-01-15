@@ -39,11 +39,12 @@ chart = ChartModule([{"Label": "expectations",
 
 agents_slider = UserSettableParameter('slider', "Number of Agents", 10, 2, 200, 1)
 neighbors_slider = UserSettableParameter('slider', "Number of Neighbors", 3, 2, 10, 1)
+network_slider = UserSettableParameter('slider', "Network Type", 1,1,2,1)
 
 model_params = {
     "N": agents_slider,
     "no_of_neighbors": neighbors_slider,
-    "network_type": network_type, 
+    "network_type": network_slider, 
 }  
 
 

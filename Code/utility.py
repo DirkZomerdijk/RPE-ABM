@@ -48,7 +48,9 @@ def compute_expectations(model):
 
 def select_network_type(network_type, N, no_of_neighbors, rand_neighbors):
     print(network_type)
-    if(network_type == 'watts_strogatz'):
+    if(network_type == 1):
+        print('watts_strogatz')
         return nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
-    elif(network_type == 'barabasi_albert'):
+    elif(network_type == 2):
+        print('barabasi_albert')
         return nx.barabasi_albert_graph(N, no_of_neighbors, seed=None)
