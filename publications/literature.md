@@ -1,3 +1,9 @@
+---
+header-includes:
+  - \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+---
+
+
 ## Prediction error
 
 - The Paranoid Optimist: An Integrative Evolutionary Model of Cognitive Biases - Martie G. Haselton, Daniel Nettle
@@ -40,14 +46,17 @@ disconnection - Santiago Gil, Damián H. Zanette
 	- Discusses how agents can affect each other opinions and even 
 how a network-based model may change the network over time based on 
 similar opinions.
-	- For each step:
-		For every two connectedagents:
-			if agents agree:
-				Continue
-			else:
-				if P1:    (P1 is a probability)
-					Opinion is changed
-				else:
-					opinions not changed
-					if P2:    (P2 is a probability)
-						break edge between agents
+\begin{algorithm}[H]
+\For{each step}{
+\For{every two connectedagents}{
+\If{agents agree}{
+	Continue}
+\Else{
+\If{P1}{
+	Opinion is changed}
+\Else{
+	opinions not changed}
+\If{P2}{
+	break edge between agents}
+}}}}
+\end{algorithm}
