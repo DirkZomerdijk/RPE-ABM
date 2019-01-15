@@ -58,4 +58,4 @@ For each step:
 - Barabasi-Alberts model
 	- Couldnt find the original paper, but http://barabasi.com/f/622.pdf is useful.
 	- Creates new nodes and interconnects them with a probability based on the degree of every node.
-		- Chance that new node connects to i is $ P(i) = K_i/\sum^N_{j=0} K_j $, where $K_i$ is the degree of node i.
+		- Chance that new node connects to i is $$P(i) = K_i/\sum^N_{j=0} K_j$$, where $K_i$ is the degree of node $i$.
