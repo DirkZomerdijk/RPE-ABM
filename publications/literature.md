@@ -78,3 +78,5 @@ For each step:
 	- Model for spreading of political opinion
 	- Has been applied to rumour phenomena (S. Galam, Physica A 320, 571-580 (2003))
 	- See 'Sociophysics:  A review of Galam models - Serge Galam' for a range of models built on this.
+	- If I understood correctly, is not network-based and barely even spatial.
+	- People are randomly assigned to groups with whom they discuss the subject, they all take the average of mode of the opinions and are reshuffled again.
