@@ -5,6 +5,7 @@ from mesa.visualization.modules import ChartModule
 from mesa.visualization.modules import NetworkModule
 from model import Network
 from utility import *
+from globals import *
 
 
 def network_portrayal(G):
@@ -30,4 +31,4 @@ grid = NetworkModule(network_portrayal, 500, 500, library='sigma')
 server = ModularServer(Network,
                        [grid],
                        "NetworkModel",
-                       {"N": 10})
+                       {"N": no_of_nodes})
