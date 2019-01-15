@@ -28,12 +28,12 @@
 	- Another agent-based model of opinion spreading, in a network scenario. This one focusses on the spreading of unpopular opinions.
 	
 	
--The Social Dynamics of Expectations:The Interaction of Collective and Actor-Specific Expectations on Electronic Commerce and
+- The Social Dynamics of Expectations:The Interaction of Collective and Actor-Specific Expectations on Electronic Commerce and
 Interactive Television
 
-	-https://www.utwente.nl/en/bms/steps/staff/Konrad_2006.pdf
+	- https://www.utwente.nl/en/bms/steps/staff/Konrad_2006.pdf
 	
-	-Using examples, explains how high expectation combined with satisfactory product provides a "protected space" from dissapointment.  If the product is not above this threshold, agents re-evaluate the outcome with their own expectation.  If collective expectations are low enough, the protected space may be lost and project cancelled (less distribution of movie).  
+	- Using examples, explains how high expectation combined with satisfactory product provides a "protected space" from dissapointment.  If the product is not above this threshold, agents re-evaluate the outcome with their own expectation.  If collective expectations are low enough, the protected space may be lost and project cancelled (less distribution of movie).  
 
 
 ## Network Reformation
