@@ -48,7 +48,7 @@ For each step:
 - Barabasi-Alberts model
 	- Couldnt find the original paper, but http://barabasi.com/f/622.pdf is useful.
 	- Creates new nodes and interconnects them with a probability based on the degree of every node.
-		- Only useful when building the initial network, not for opinion spreading.
+	- Only useful when building the initial network, not for opinion spreading.
 		- Chance that new node connects to i is P(i) = K<sub>i</sub>/(&sum;<sup>N</sup><sub>j=0</sub> K<sub>j</sub>), where K<sub>i</sub> is the degree of node i.
 		- Also check out Bianconi-Barabasi model where fitness is added.
 
@@ -72,3 +72,9 @@ For each step:
 		- In case of the HK-model, opinion i becomes the average of all opinions that do not differ more than &epsilon;.
 
 - There is a bunch of Ising-model-based-models which state that the opinion-change depends on the number of neighbours with a certain opinion. Although I think that these models are not entriely suited to this project, we may eventually implement such an effect. (See the Sznajd-model under the second header.)
+
+- Dynamical Galam model - Taksu Cheon, Serge Galam
+	- https://arxiv.org/pdf/1802.05389.pdf
+	- Model for spreading of political opinion
+	- Has been applied to rumour phenomena (S. Galam, Physica A 320, 571-580 (2003))
+	- See 'Sociophysics:  A review of Galam models - Serge Galam' for a range of models built on this.
