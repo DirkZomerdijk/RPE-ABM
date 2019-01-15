@@ -28,7 +28,7 @@
 	- Another agent-based model of opinion spreading, in a network scenario. This one focusses on the spreading of unpopular opinions.
 
 
-*** Network Reformation
+## Network Reformation
 
 - Coevolution of agents and networks: Opinion spreading and community 
 disconnection - Santiago Gil, Damián H. Zanette
