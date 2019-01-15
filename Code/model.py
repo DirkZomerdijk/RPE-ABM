@@ -4,7 +4,6 @@ from mesa.time import RandomActivation
 from agents import *
 from utility import *
 from mesa.space import NetworkGrid
-import numpy as np
 
 class Network(Model):
 
