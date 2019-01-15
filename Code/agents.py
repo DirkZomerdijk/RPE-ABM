@@ -7,7 +7,7 @@ class agent(Agent):
 
     def __init__(self, unique_id, model):
         super().__init__(unique_id, model)
-        self.expectation = get_rand_expectation()
+        self.expectation = set_rand_expectation()
 
     def talk(self):
         neigbors_nodes = self.model.grid.get_neighbors(self.pos, include_center = False)
@@ -16,7 +16,7 @@ class agent(Agent):
         new_expectation = mean_neighbor_expectation(neighbors)
         self.expectation = new_expectation
         print(self.expectation)
-        
+
     def step(self):
         # self.expectation += 1
         self.talk()
