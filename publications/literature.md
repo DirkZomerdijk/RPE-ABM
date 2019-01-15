@@ -1,10 +1,4 @@
-- OPINION EVOLUTION IN CLOSED COMMUNITY - KATARZYNA SZNAJD-WERON
-
-	- https://www.worldscientific.com/doi/pdf/10.1142/S0129183100000936
-
-	- Describes the Sznajd model for agent based opinion spreading built on the Ising model. It's an approach different from ours, but may be inspirational.
-
-
+## Prediction error
 
 - The Paranoid Optimist: An Integrative Evolutionary Model of Cognitive Biases - Martie G. Haselton, Daniel Nettle
 
@@ -12,6 +6,14 @@
 
 	- Review paper of Prediction error modelling and its implementations. Also shows some mathematical basis, but that might not be suited for opinion spreading.
 
+
+## Opinion spreading
+
+- OPINION EVOLUTION IN CLOSED COMMUNITY - KATARZYNA SZNAJD-WERON
+
+	- https://www.worldscientific.com/doi/pdf/10.1142/S0129183100000936
+
+	- Describes the Sznajd model for agent based opinion spreading built on the Ising model. It's an approach different from ours, but may be inspirational.
 
 
 - OPINION SPREADING AND CONSENSUS FORMATION ON SQUARE LATTICE - JIAN-GUO LIU , ZHI-XI WU and FENG WANG
