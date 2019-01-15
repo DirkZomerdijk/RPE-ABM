@@ -21,8 +21,7 @@ class Network(Model):
             self.grid.place_agent(a, node_list[i])
             self.schedule.add(a)
 
-        self.datacollector = DataCollector(
-            agent_reporters={"expectation": "expectation"}) 
+        self.datacollector = DataCollector(agent_reporters={"expectation": "expectation"}) 
         self.running = True
     
 

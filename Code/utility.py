@@ -28,9 +28,13 @@ def set_reputation():
     return random.uniform(0,10)
 
 def get_payoff_matrix(reputationA,reputationB,convincing_powerA,convincing_powerB):
-    # return np.array([[ [reputationA, convincing_powerA], [reputationB,convincing_powerB]],
- #             [[convincing_powerA, reputationB], [convincing_powerA, convincing_powerB]] ] )
     return np.array([[reputationA, convincing_powerA], [reputationB,convincing_powerB]])
 
 
+def play_game(payoff_matrix):
+    game = nash.Game(payoff_matrix)
+    for eq in game.support_enumeration():
+        choiceA = np.where(eq[0] == max(eq[0]))[0]
+        choiceB = np.where(eq[1] == max(eq[1]))[0]
 
+        print(payoff_matrix[choiceA[0]][choiceB][0])

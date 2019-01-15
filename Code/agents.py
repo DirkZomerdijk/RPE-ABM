@@ -16,6 +16,7 @@ class agent(Agent):
         new_expectation = mean_neighbor_expectation(neighbors)
         self.expectation = new_expectation
         print(self.expectation)
+        
     def step(self):
         # self.expectation += 1
         self.talk()
