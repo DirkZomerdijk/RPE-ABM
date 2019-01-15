@@ -41,15 +41,15 @@ disconnection - Santiago Gil, Damián H. Zanette
 how a network-based model may change the network over time based on 
 similar opinions.
 ~~~~
-	- For each step:
-		- For every two connectedagents:
-			- if agents agree:
-				- Continue
-			- else:
-				- if P1:    (P1 is a probability)
-					- Opinion is changed
-				- else:
-					- opinions not changed
-					- if P2:    (P2 is a probability)
-						- Break edge between the two agents
+For each step:
+	For every two connectedagents:
+		if agents agree:
+			Continue
+		else:
+			if P1:    (P1 is a probability)
+				Opinion is changed
+			else:
+				opinions not changed
+				if P2:    (P2 is a probability)
+					Break edge between the two agents
 ~~~~
