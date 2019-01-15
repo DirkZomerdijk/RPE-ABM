@@ -40,6 +40,7 @@ disconnection - Santiago Gil, Damián H. Zanette
 	- Discusses how agents can affect each other opinions and even 
 how a network-based model may change the network over time based on 
 similar opinions.
+~~~~
 	- For each step:
 		- For every two connectedagents:
 			- if agents agree:
@@ -51,3 +52,4 @@ similar opinions.
 					- opinions not changed
 					- if P2:    (P2 is a probability)
 						- Break edge between the two agents
+~~~~
