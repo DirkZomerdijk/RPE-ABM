@@ -4,6 +4,9 @@ rand_neighbors = 0
 no_of_nodes = 50
 no_of_steps = 4
 
+# parameters
+edge_strength_chance = .1
+
 #colors
 node_color = '#007959'
 edge_color = '#000000'
