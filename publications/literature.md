@@ -114,7 +114,7 @@ For each step:
 - The Deffuant-Weisbuch model might resemble our setting the most, but I think we can use a bit of every model since none of them exactly represent our scenario.
 
 - Agents might cooperate (share their opinion, increase edge-strength) or defect (dont hsare opinion, decrease edge-strength)
-	- It would be possible to make these interactions a Hawk-Dove game, where the probability to be a hawk or dove at least depends on the difference in opinion.
+	- It would be possible to make these interactions a Hawk-Dove game, where the probability to be a hawk or dove at least depends on the difference in opinion. (People do not necessarily stay Hawk or Dove throughout the whole game, they may change at every interaction.)
 	- e.g. chance to be a hawk P<sub>H</sub> = &beta; |s<sub>i</sub> - s<sub>j</sub>|, where &beta; is a constant and s<sub>i</sub> is the opinion of i.
 		- Two hawks radicalize their opinion and diminish the edge-strength between them
 		- Two doves shift their opinion towards the average and increase their edge-strength
