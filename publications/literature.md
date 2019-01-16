@@ -43,6 +43,7 @@ For each step:
 				if P2:    (P2 is a probability)
 					Break edge between the two agents
 ~~~~
+
 	- This would be very interesting to implement when opinion holds a continuous value, as P1 and P2 will then also depend on the difference in opinion.
 
 - Barabasi-Alberts model
