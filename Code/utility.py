@@ -52,11 +52,11 @@ def compute_opinions(model):
     return np.mean(agent_opinions)
 
 
-def select_network_type(network_type, N, no_of_neighbors, rand_neighbors):
+def select_network_type(network_type, N, no_of_neighbors, beta_component):
     print(network_type)
     if(network_type == 1):
         print('watts_strogatz')
-        return nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
+        return nx.watts_strogatz_graph(N, no_of_neighbors, beta_component, seed=None)
     elif(network_type == 2):
         print('barabasi_albert')
         return nx.barabasi_albert_graph(N, no_of_neighbors, seed=None)

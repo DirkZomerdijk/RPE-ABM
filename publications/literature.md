@@ -82,6 +82,10 @@ For each step:
 	- See 'Sociophysics:  A review of Galam models - Serge Galam' for a range of models built on this.
 	- If I understood correctly, is not network-based and barely even spatial.
 	- People are randomly assigned to groups with whom they discuss the subject, they all take the average of mode of the opinions and are reshuffled again.
+	
+- Computational Models of Trust and Reputation: Agents, Evolutionary Games, and Social Networks (THE LONG PHD ONE)
+	- groups.csail.mit.edu/medg/ftp/lmui/computational models of trust and reputation.pdf
+
 
 - Opinion dynamics:  models, extensions and external effects - Alina Sırbu, Vittorio Loreto,  Vito D. P. Servedio and Francesca Tria
 	- https://arxiv.org/pdf/1605.06326.pdf
@@ -119,3 +123,6 @@ For each step:
 		- Two hawks radicalize their opinion and diminish the edge-strength between them
 		- Two doves shift their opinion towards the average and increase their edge-strength
 		- Hawks convince doves and increase the edge-strength in less degree
+		
+
+

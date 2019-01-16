@@ -11,9 +11,9 @@ from mesa.datacollection import DataCollector
 
 class Network(Model):
 
-    def __init__(self, N, no_of_neighbors, network_type):  
+    def __init__(self, N, no_of_neighbors, network_type, beta_component):  
         self.num_agents = N
-        self.G = select_network_type(network_type, N, no_of_neighbors, rand_neighbors) #nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
+        self.G = select_network_type(network_type, N, no_of_neighbors, beta_component) #nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
         self.grid = NetworkGrid(self.G)
         self.schedule = RandomActivation(self)
 
