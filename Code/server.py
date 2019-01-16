@@ -13,8 +13,8 @@ def network_portrayal(G):
   portrayal = dict()
   portrayal['nodes'] = [{ 'id': node_id,
                           'Shape': 'circle',
-                          'size': 1 ,
-                          'color': node_color,
+                          'size': 0.2 ,
+                          'color': '#CC0000' if not agents or agents[0].opinion == 0 else '#007959',
                           # 'label': 'Agent:{} expectation:{}'.format(agents[0].unique_id, agents[0].expectation),
                           'label': 'expectation:{0:.2f}'.format(agents[0].expectation),
 
@@ -31,13 +31,13 @@ def network_portrayal(G):
   return portrayal
 
 
-grid = NetworkModule(network_portrayal, 400, 400, library='sigma')
+grid = NetworkModule(network_portrayal, 400, 600, library='sigma')
 chart = ChartModule([{"Label": "expectations",
                       "Color": "Black"}],
                     data_collector_name='datacollector')
 
 
-agents_slider = UserSettableParameter('slider', "Number of Agents", 10, 2, 200, 1)
+agents_slider = UserSettableParameter('slider', "Number of Agents", 10, 2, 800, 1)
 neighbors_slider = UserSettableParameter('slider', "Number of Neighbors", 3, 2, 10, 1)
 network_slider = UserSettableParameter('slider', "Network Type", 1,1,2,1)
 

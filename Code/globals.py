@@ -1,8 +1,8 @@
 # Variables
-no_of_neighbors = 3
+no_of_neighbors = 4
 rand_neighbors = 0
 no_of_nodes = 50
-no_of_steps = 2
+no_of_steps = 4
 
 #colors
 node_color = '#007959'

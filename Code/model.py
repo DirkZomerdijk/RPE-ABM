@@ -26,7 +26,7 @@ class Network(Model):
 
         self.datacollector = DataCollector(
             model_reporters={
-                "expectations": compute_expectations
+                "expectations": compute_opinions
             },
             agent_reporters={
                 "expectation": "expectation",

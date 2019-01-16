@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import networkx as nx
+from scipy.stats import norm
 
 def get_expectation_list(N):
     expectation_list = []
@@ -16,11 +17,12 @@ def mean_neighbor_expectation(neighbors):
     new_expectation = sum(neighbor_expectation) / float(len(neighbor_expectation))
     return new_expectation
 
-def set_rand_expectation():
-    mean = 5.5
-    stdev = 5.5/5.5   # 99.73% chance the sample will fall in your desired range
+def set_rand_unifrom_expectation():
+    return np.random.uniform(0,1)
 
-    return float("%.2f" % random.gauss(mean, stdev))
+def set_rand_normal_expectation():
+    return norm(0,1).pdf(np.random.randint(0,99))
+
 
 def set_type():
     return random.choice(type_list)
@@ -45,6 +47,10 @@ def compute_expectations(model):
     agent_expectations = [agent.expectation for agent in model.schedule.agents]
     return np.mean(agent_expectations)
 
+def compute_opinions(model):
+    agent_opinions = [agent.opinion for agent in model.schedule.agents]
+    return np.mean(agent_opinions)
+
 
 def select_network_type(network_type, N, no_of_neighbors, rand_neighbors):
     print(network_type)
@@ -54,3 +60,9 @@ def select_network_type(network_type, N, no_of_neighbors, rand_neighbors):
     elif(network_type == 2):
         print('barabasi_albert')
         return nx.barabasi_albert_graph(N, no_of_neighbors, seed=None)
+
+def set_opinion():
+    if random.uniform(0,1) > 0.5:
+        return 0
+    else:
+        return 1

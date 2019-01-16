@@ -1,6 +1,6 @@
 from model import *  # omit this in jupyter notebooks
 
-# network = Network(no_of_nodes, no_of_neighbors)
+# network = Network(no_of_nodes, 4, 1)
 # for i in range(no_of_steps):
 #     network.step()
 
