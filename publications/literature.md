@@ -80,3 +80,22 @@ For each step:
 	- See 'Sociophysics:  A review of Galam models - Serge Galam' for a range of models built on this.
 	- If I understood correctly, is not network-based and barely even spatial.
 	- People are randomly assigned to groups with whom they discuss the subject, they all take the average of mode of the opinions and are reshuffled again.
+
+- Opinion dynamics:  models, extensions and external effects - Alina Sırbu, Vittorio Loreto,  Vito D. P. Servedio and Francesca Tria
+	- https://arxiv.org/pdf/1605.06326.pdf
+	- describes several models and extensions for opinion dynamics:
+		- The ising model
+			- Usually too simple for real-life scenarios
+		- The voter model
+			- Each agent gives his opinion to a random neighbour
+		- The Majority rule model
+			- Averages of random groups are given to every member of the group, like the Galam model
+		- The Sznajd model
+			- Interesting, social pressure it the weighted sum of the persuasiveness of all neighbours proportional to the opinion
+		- The q-voter model
+			- If two random agents agree, they may convince a third one, else one of them changes opinion with probability &epsilon;
+		- The Deffuant-Weisbuch model
+			- Uses continuous opinion values
+		- The Hegselmann-Krausse model
+			- More suited for groups, like meetings, while the DW model is more suited for pairwise interaction
+		- Lots more!
