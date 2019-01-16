@@ -30,6 +30,9 @@ disconnection - Santiago Gil, Damián H. Zanette
 	- Discusses how agents can affect each other opinions and even 
 how a network-based model may change the network over time based on 
 similar opinions.
+
+	- This would be very interesting to implement when opinion holds a continuous value, as P1 and P2 will then also depend on the difference in opinion.
+
 ~~~~
 For each step:
 	For every two connectedagents:
@@ -43,8 +46,6 @@ For each step:
 				if P2:    (P2 is a probability)
 					Break edge between the two agents
 ~~~~
-
-	- This would be very interesting to implement when opinion holds a continuous value, as P1 and P2 will then also depend on the difference in opinion.
 
 - Barabasi-Alberts model
 	- Couldnt find the original paper, but http://barabasi.com/f/622.pdf is useful.
