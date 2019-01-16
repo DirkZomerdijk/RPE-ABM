@@ -101,3 +101,21 @@ For each step:
 		- The Hegselmann-Krausse model
 			- More suited for groups, like meetings, while the DW model is more suited for pairwise interaction
 		- Lots more!
+
+## Summary Opinion dynamics
+
+- In almost every model:
+	- Opinion spreads faster when agreeing agents send out peer pressure to one agent of another opinion
+	- If agents do not agree, there is always a chance that one of them changes their opinion
+	- When opinion is non-binary (our case), the chance of interaction decreases as the difference in opinion decreases
+	- If two agents disagree and do not change their opinion, there is a chance that their connection breaks (or diminishes, if edge-strength is also implemented)
+	- Connections between agents arise for agents that already have a lot of connections (see barabasi-alberts for preferential attachment)
+
+- The Deffuant-Weisbuch model might resemble our setting the most, but I think we can use a bit of every model since none of them exactly represent our scenario.
+
+- Agents might cooperate (share their opinion, increase edge-strength) or defect (dont hsare opinion, decrease edge-strength)
+	- It would be possible to make these interactions a Hawk-Dove game, where the probability to be a hawk or dove at least depends on the difference in opinion.
+	- e.g. chance to be a hawk P<sub>H</sub> = &beta; |s<sub>i</sub> - s<sub>j</sub>|, where &beta; is a constant and s<sub>i</sub> is the opinion of i.
+		- Two hawks radicalize their opinion and diminish the edge-strength between them
+		- Two doves shift their opinion towards the average and increase their edge-strength
+		- Hawks convince doves and increase the edge-strength in less degree
