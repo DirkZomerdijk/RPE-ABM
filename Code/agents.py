@@ -7,34 +7,34 @@ class agent(Agent):
 
     def __init__(self, unique_id, model):
         super().__init__(unique_id, model)
-        self.expectation = set_rand_unifrom_expectation()
+        self.preference = set_rand_unifrom_preference()
         self.opinion = set_opinion()
-        # print(self.expectation)
+        # print(self.preference)
 
 
     def form_opinion(self, neighbors):
         #function 
-        neighbor_expectation = []
-        A_expectation = []
-        B_expectation = []
+        neighbor_preference = []
+        A_preference = []
+        B_preference = []
 
         for neighbor in neighbors:
-            neighbor_expectation.append(neighbor.expectation)
+            neighbor_preference.append(neighbor.preference)
             if neighbor.opinion == 0:
-                A_expectation.append(neighbor.expectation)
+                A_preference.append(neighbor.preference)
             else:
-                B_expectation.append(neighbor.expectation)
-                
-        if(len(neighbor_expectation)!=0):
-            probability_rate_A = sum(A_expectation)/sum(neighbor_expectation)
-            probability_rate_B = sum(B_expectation)/sum(neighbor_expectation)
+                B_preference.append(neighbor.preference)
+
+        if(len(neighbor_preference)!=0):
+            probability_rate_A = sum(A_preference)/sum(neighbor_preference)
+            probability_rate_B = sum(B_preference)/sum(neighbor_preference)
 
             if random.uniform(0,1) < probability_rate_A:
                 self.opinion = 0
-                # self.expectation = probability_rate_A
+                # self.preference = probability_rate_A
             else:
                 self.opinion = 1
-                # self.expectation = probability_rate_B
+                # self.preference = probability_rate_B
 
     def choose_neighbors(self, neighbors):
         selected_neighbors = []
@@ -43,9 +43,11 @@ class agent(Agent):
 
             if( connection_strength > np.random.uniform(0,1)):
                 selected_neighbors.append(neighbor)
-                connection_strength += edge_strength_chance
+                if(connection_strength < high_edge_strength):
+                    connection_strength += edge_strength_chance
             else: 
-                connection_strength -= edge_strength_chance
+                if(connection_strength > low_edge_strength):
+                    connection_strength -= edge_strength_chance
 
         return selected_neighbors
 
@@ -56,18 +58,16 @@ class agent(Agent):
         '''
         neigbors_nodes = self.model.grid.get_neighbors(self.pos, include_center = False)
         neighbors = self.model.grid.get_cell_list_contents(neigbors_nodes)
-
-
         selected_neighbors = self.choose_neighbors(neighbors)
 
         self.form_opinion(selected_neighbors)
 
-        # new_expectation = mean_neighbor_expectation(neighbors)
-        # self.expectation = new_expectation
-        # print(self.expectation)
+        # new_preference = mean_neighbor_preference(neighbors)
+        # self.preference = new_preference
+        # print(self.preference)
 
     def step(self):
-        # self.expectation += 1
+        # self.preference += 1
         self.talk()
         # print(self.unique_id)
     # def get_neighbours(self):

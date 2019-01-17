@@ -16,10 +16,12 @@ class Network(Model):
         self.G = select_network_type(network_type, N, no_of_neighbors, beta_component) #nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
         self.grid = NetworkGrid(self.G)
         self.schedule = RandomActivation(self)
+        self.node_positions = nx.spring_layout(self.G)
 
         self.node_list = self.random.sample(self.G.nodes(), self.num_agents)
         
         nx.set_edge_attributes(self.G, 1, 'connection_strength')
+        
 
 
         for i in range(self.num_agents):            
@@ -29,10 +31,10 @@ class Network(Model):
 
         self.datacollector = DataCollector(
             model_reporters={
-                "expectations": compute_opinions
+                "preferences": compute_opinions
             },
             agent_reporters={
-                "expectation": "expectation",
+                "preference": "preference",
             }) 
 
         self.running = True

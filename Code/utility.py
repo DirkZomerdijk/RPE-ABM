@@ -3,24 +3,24 @@ import random
 import networkx as nx
 from scipy.stats import norm
 
-def get_expectation_list(N):
-    expectation_list = []
+def get_preference_list(N):
+    preference_list = []
     for i in range(N):
-        expectation_list.append(set_reputation())
+        preference_list.append(set_reputation())
 
-    return expectation_list
+    return preference_list
 
-def mean_neighbor_expectation(neighbors):
-    neighbor_expectation = []
+def mean_neighbor_preference(neighbors):
+    neighbor_preference = []
     for neighbor in neighbors:
-        neighbor_expectation.append(neighbor.expectation)
-    new_expectation = sum(neighbor_expectation) / float(len(neighbor_expectation))
-    return new_expectation
+        neighbor_preference.append(neighbor.preference)
+    new_preference = sum(neighbor_preference) / float(len(neighbor_preference))
+    return new_preference
 
-def set_rand_unifrom_expectation():
+def set_rand_unifrom_preference():
     return np.random.uniform(0,1)
 
-def set_rand_normal_expectation():
+def set_rand_normal_preference():
     return norm(0,1).pdf(np.random.randint(0,99))
 
 
@@ -43,9 +43,9 @@ def play_game(payoff_matrix):
         print(payoff_matrix[choiceA[0]][choiceB][0])
 
 
-def compute_expectations(model):
-    agent_expectations = [agent.expectation for agent in model.schedule.agents]
-    return np.mean(agent_expectations)
+def compute_preferences(model):
+    agent_preferences = [agent.preference for agent in model.schedule.agents]
+    return np.mean(agent_preferences)
 
 def compute_opinions(model):
     agent_opinions = [agent.opinion for agent in model.schedule.agents]

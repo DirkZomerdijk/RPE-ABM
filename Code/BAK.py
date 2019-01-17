@@ -9,7 +9,7 @@ class agent(Agent):
 
     def __init__(self, unique_id, model):
         super().__init__(unique_id, model)
-        self.expectation = get_rand_expectation()
+        self.preference = get_rand_preference()
         self.type = get_type()
         self.convincing_power = type_dict[self.type]
         self.reputation = set_reputation()
@@ -36,7 +36,7 @@ class agent(Agent):
 
 
     def step(self):
-        # self.expectation += 1
+        # self.preference += 1
         self.talk()
         # print(self.unique_id)
     # def get_neighbours(self):
@@ -53,15 +53,15 @@ import numpy as np
 type_list = ['convincing', 'normal', 'unconvincing']
 type_dict = {'convincing':5, 'normal':3, 'unconvincing':1}
 
-def get_expectation_list(N):
-    expectation_list = []
+def get_preference_list(N):
+    preference_list = []
     for i in range(N):
-        expectation_list.append(get_rand_expectation())
+        preference_list.append(get_rand_preference())
 
-    return expectation_list
+    return preference_list
 
 
-def get_rand_expectation():
+def get_rand_preference():
     mean = 5.5
     stdev = 5.5/5.5   # 99.73% chance the sample will fall in your desired range
 

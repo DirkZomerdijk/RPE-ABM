@@ -5,7 +5,9 @@ no_of_nodes = 50
 no_of_steps = 4
 
 # parameters
-edge_strength_chance = .1
+edge_strength_chance = .33333
+low_edge_strength = 0
+high_edge_strength = 1
 
 #colors
 node_color = '#007959'

@@ -1,4 +1,4 @@
-## Prediction error
+﻿## Prediction error
 
 - The Paranoid Optimist: An Integrative Evolutionary Model of Cognitive Biases - Martie G. Haselton, Daniel Nettle
 	- https://journals.sagepub.com/doi/pdf/10.1207/s15327957pspr1001_3
