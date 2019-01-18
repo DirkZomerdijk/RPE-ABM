@@ -14,3 +14,7 @@
 	- random network
 		- dynamic?
 	- 
+
+
+- Reputation system
+- Similarity constraint
