@@ -17,3 +17,6 @@ edge_color = '#000000'
 #networks
 # network_type = 'watts_strogatz'
 network_type = 'barabasi_albert'
+
+
+similarity_treshold = .1

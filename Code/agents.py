@@ -31,7 +31,6 @@ class agent(Agent):
 
     def form_opinion(self, neighbors):
         """ Function to determine if opninion needs to be adapted based on neighbors""" 
-        #function 
         neighbor_preference = []
         A_preference = []
         B_preference = []
@@ -43,16 +42,17 @@ class agent(Agent):
             else:
                 B_preference.append(neighbor.preference)
 
-        if(len(neighbor_preference)!=0):
+        if( len(neighbor_preference) != 0):
             probability_rate_A = sum(A_preference)/sum(neighbor_preference)
             probability_rate_B = sum(B_preference)/sum(neighbor_preference)
 
             if (self.opinion == 0) and (probability_rate_B < self.preference):
                 self.select_A(A_preference)
             
-            if (self.opinion == 1) and (probability_rate_A < self.preference):
+            elif (self.opinion == 1) and (probability_rate_A < self.preference):
                 self.select_B(B_preference)
-            if random.uniform(0,1) < probability_rate_A:
+
+            elif random.uniform(0,1) < probability_rate_A:
                 self.select_A(A_preference)
             else:
                 self.select_B(B_preference)
@@ -61,18 +61,40 @@ class agent(Agent):
     def choose_neighbors(self, neighbors):
         """ Choose whitch neighbors to talk with based on reputation"""
         selected_neighbors = []
+        similar_neighbors = []
         for neighbor in neighbors:
-            reputation = self.model.G.edges[self.pos,neighbor.pos]['times_agreed']/self.model.G.edges[self.pos,neighbor.pos]['total_encounters']
+            # reputation = self.model.G.edges[self.pos,neighbor.pos]['times_agreed']/self.model.G.edges[self.pos,neighbor.pos]['total_encounters']
+            neighbor_preference = neighbor.preference
+            own_preference = self.preference
+            
+            neighbor_opinion = neighbor.opinion
+            own_opinion = self.opinion
 
-            if( reputation > np.random.uniform(0,1)):
-                selected_neighbors.append(neighbor)
-                if(reputation < high_edge_strength):
-                    reputation += edge_strength_chance
-            else: 
-                if(reputation > low_edge_strength):
-                    reputation -= edge_strength_chance
+            neighbor_position  = neighbor.pos
+            own_position = self.pos
 
-        return selected_neighbors
+            reputation = self.model.G.edges[own_position,neighbor_position]['reputation']
+
+            if(neighbor_opinion == own_opinion):
+                print('similar_opinion')
+                # print(abs(neighbor_preference - own_preference))
+                if(abs(neighbor_preference - own_preference) < similarity_treshold):
+                    similar_neighbors.append(neighbor)
+            else:
+                print('different opinion')
+                if( reputation > np.random.uniform(0,1)):
+                    selected_neighbors.append(neighbor)
+                    self.update_reputation(neighbor_position)
+
+        if(len(similar_neighbors) != 0):
+            return similar_neighbors
+        else:
+            return selected_neighbors
+
+    def update_reputation(self, neighbor_position):
+        self.model.update_edge(self.pos, neighbor_position)
+
+        # print('rep of node ' +str(self.pos)+' and '+str(neighbor.pos)+': ' +str(self.model.G.edges[self.pos, neighbor.pos]['reputation']))
 
     def talk(self):
         '''
@@ -82,9 +104,8 @@ class agent(Agent):
         neigbors_nodes = self.model.grid.get_neighbors(self.pos, include_center = False)
         neighbors = self.model.grid.get_cell_list_contents(neigbors_nodes)
         selected_neighbors = self.choose_neighbors(neighbors)
-
-
         self.form_opinion(selected_neighbors)
+        # self.update_neigboring_reputations(selected_neighbors)
 
         # new_preference = mean_neighbor_preference(neighbors)
         # self.preference = new_preference

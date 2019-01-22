@@ -22,11 +22,10 @@ class Network(Model):
 	   # Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
         nx.set_edge_attributes(self.G, 2, 'total_encounters')
         nx.set_edge_attributes(self.G, 1, 'times_agreed')
+        nx.set_edge_attributes(self.G, .5, 'reputation')
         
         self.place_agents()
-        self.set_edges()
-
-
+        
         self.datacollector = DataCollector(
             model_reporters={
                 "preferences": compute_opinions
@@ -37,17 +36,6 @@ class Network(Model):
 
         self.running = True
 
-    # initialize edge strenghts
-    def set_edges(self):
-        for edge in self.G.edges():
-            
-            opinionA = self.G.nodes()[edge[0]]['agent'][0].opinion
-            opinionB = self.G.nodes()[edge[1]]['agent'][0].opinion
-    
-            self.G.edges[edge[0], edge[1]]['total_encounters'] += 1
-    
-            if(opinionA == opinionB):
-                self.G.edges[edge[0], edge[1]]['times_agreed'] += 1
 
     # place agents on network
     def place_agents(self):
@@ -57,15 +45,20 @@ class Network(Model):
             self.schedule.add(a)
 
     # Update reputation between nodes
-    def update_edge(node1, node2):
+    def update_edge(self, node1, node2):
         # Get opinion of agents
         opinionA = self.G.nodes()[node1]['agent'][0].opinion
-        opinionB = self.G.nodes()[node2]['agent'][0].opinion              
-        self.G.edges[node1, node2]['total_encounters'] += 1
+        opinionB = self.G.nodes()[node2]['agent'][0].opinion   
 
+        total_encounters = self.G.edges[node1, node2]['total_encounters']      
+        times_agreed = self.G.edges[node1, node2]['times_agreed']
+
+        total_encounters += 1
         # If agents share opinion, edge strength increases
         if(opinionA == opinionB):
-            self.G.edges[node1, node2]['times_agreed'] += 1
+            times_agreed += 1
+
+        self.G.edges[node1, node2]['reputation'] = times_agreed /  total_encounters
 
     def step(self):
         # nx.draw(self.G, pos=nx.spring_layout(self.G))

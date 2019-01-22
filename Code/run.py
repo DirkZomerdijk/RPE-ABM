@@ -1,8 +1,8 @@
 from model import *  # omit this in jupyter notebooks
 
-# network = Network(no_of_nodes, 4, 1)
-# for i in range(no_of_steps):
-#     network.step()
+# network = Network(10,5, 2, .15)
+# for i in range(100):
+# 	network.step()
 
 # agent_preference = network.datacollector.get_agent_vars_dataframe()
 # print(agent_preference)
@@ -11,5 +11,5 @@ from model import *  # omit this in jupyter notebooks
 # run
 from server import server
 
-server.port = 8229 # The default
+server.port = 8243 # The default
 server.launch()
