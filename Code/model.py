@@ -20,9 +20,10 @@ class Network(Model):
 
         self.node_list = self.random.sample(self.G.nodes(), self.num_agents)
         
-        nx.set_edge_attributes(self.G, 1, 'connection_strength')
+	   # Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
+        nx.set_edge_attributes(self.G, 2, 'total_encounters')
+        nx.set_edge_attributes(self.G, 1, 'times_agreed')
         
-
 
         for i in range(self.num_agents):            
             a = agent(i, self)
@@ -39,34 +40,33 @@ class Network(Model):
 
         self.running = True
 
-        # for edge in self.G.edges():
-        #     # print(edge.connection_strength)
+        for edge in self.G.edges():
+            # print(edge.connection_strength)
             
-        #     opinionA = self.G.nodes()[edge[0]]['agent'][0].opinion
-        #     opinionB = self.G.nodes()[edge[1]]['agent'][0].opinion
-        #     if(opinionA == opinionB):
-        #         self.G.edges[edge[0], edge[1]]['connection_strength'] += .1
-        #     else:
-        #         self.G.edges[edge[0], edge[1]]['connection_strength'] -= .1
-
+            opinionA = self.G.nodes()[edge[0]]['agent'][0].opinion
+            opinionB = self.G.nodes()[edge[1]]['agent'][0].opinion
+	
+            self.G.edges[edge[0], edge[1]]['total_encounters'] += 1
+	
+            if(opinionA == opinionB):
+                self.G.edges[edge[0], edge[1]]['times_agreed'] += 1
             # print(opinionA)
             
             # break
 
 
-    # def update_edge(node1, node2):
-    #     # Get opinion of agents
-    #     opinionA = self.G.nodes()[node1]['agent'][0].opinion
-    #     opinionB = self.G.nodes()[node2]['agent'][0].opinion              
-        
-    #     # If agents share opinion, edge strength increases
-    #     if(opinionA == opinionB):
-    #         self.G.edges[node1, node2]['connection_strength'] += .1
-    #     else:
-    #         self.G.edges[node1, node2]['connection_strength'] -= .1
-
+    def update_edge(node1, node2):
+        # Get opinion of agents
+        opinionA = self.G.nodes()[node1]['agent'][0].opinion
+        opinionB = self.G.nodes()[node2]['agent'][0].opinion              
+        self.G.edges[node1, node2]['total_encounters'] += 1
+        # If agents share opinion, edge strength increases
+        if(opinionA == opinionB):
+            self.G.edges[node1, node2]['times_agreed'] += 1
 
     def step(self):
+        # nx.draw(self.G, pos=nx.spring_layout(self.G))
+        # plt.show()
         self.datacollector.collect(self)
         self.schedule.step()
         # print("new step")
