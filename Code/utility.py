@@ -1,4 +1,5 @@
 import numpy as np
+from globals import *
 import random
 import networkx as nx
 from scipy.stats import norm
@@ -9,6 +10,9 @@ def get_preference_list(N):
         preference_list.append(set_reputation())
 
     return preference_list
+
+def update_preference(my_preference, neighbors_preference):
+    my_preference = my_preference + (K* sum([(neighbor - my_preference) for neighbor in neighbors_preference]))
 
 def mean_neighbor_preference(neighbors):
     neighbor_preference = []

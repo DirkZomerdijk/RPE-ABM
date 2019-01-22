@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import random
 from globals import *
 class agent(Agent):
+    """ An agent with fixed initial preference and opinion."""
 
     def __init__(self, unique_id, model):
         super().__init__(unique_id, model)
@@ -11,25 +12,25 @@ class agent(Agent):
         self.opinion = set_opinion()
         # print(self.preference)
 
-
+    
     def select_A(self, A_preference):
+        """ Adapt preference score and opinion to A"""
         if self.opinion == 1:
             self.preference = 1 - self.preference
         
         self.opinion = 0
-        self.preference = self.preference + (K* sum([(x - self.preference) for x in A_preference]))
-        print((K* sum([(x - self.preference) for x in A_preference])))
+        update_preference(self.preference, A_preference)
 
     def select_B(self, B_preference):
+        """ Adapt preference score and opinion to A"""
         if self.opinion == 0:
             self.preference = 1 - self.preference
 
         self.opinion = 1
-        self.preference = self.preference + (K* sum([(x - self.preference) for x in B_preference]))
-        print((K* sum([(x - self.preference) for x in B_preference])))
-
+        update_preference(self.preference, B_preference)
 
     def form_opinion(self, neighbors):
+        """ Function to determine if opninion needs to be adapted based on neighbors""" 
         #function 
         neighbor_preference = []
         A_preference = []
@@ -58,6 +59,7 @@ class agent(Agent):
 
 
     def choose_neighbors(self, neighbors):
+        """ Choose whitch neighbors to talk with based on reputation"""
         selected_neighbors = []
         for neighbor in neighbors:
             connection_strength = self.model.G.edges[self.pos,neighbor.pos]['total_encounters']/self.model.G.edges[self.pos,neighbor.pos]['times_agreed']
