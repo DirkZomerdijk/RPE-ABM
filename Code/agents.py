@@ -62,7 +62,13 @@ class agent(Agent):
         """ Choose whitch neighbors to talk with based on reputation"""
         selected_neighbors = []
         for neighbor in neighbors:
-            reputation = self.model.G.edges[self.pos,neighbor.pos]['times_agreed']/self.model.G.edges[self.pos,neighbor.pos]['total_encounters']
+            if neighbor.opinion == self.opinion:
+                similarity_constraint = abs(neighbor.preference - self.preference)
+            else:
+                similarity_constraint = neighbor.preference + self.preference
+
+
+            reputation = (self.model.G.edges[self.pos,neighbor.pos]['times_agreed']/self.model.G.edges[self.pos,neighbor.pos]['total_encounters'])*(1-(similarity_constraint/2))
 
             if( reputation > np.random.uniform(0,1)):
                 selected_neighbors.append(neighbor)
