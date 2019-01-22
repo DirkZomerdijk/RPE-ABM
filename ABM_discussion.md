@@ -18,3 +18,5 @@
 
 - Reputation system
 - Similarity constraint
+- Preference calculation needs to change when being converted to another 
+opinion: In this situation, extremist A's will turn into extremist B's.
