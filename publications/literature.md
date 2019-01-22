@@ -21,19 +21,6 @@
 	- https://journals.sagepub.com/doi/pdf/10.1177/0894439315605607?casa_token=M2Q4h2HEfWQAAAAA%3AIZvA6whTROB7VpMU-dM4X1E6-EidIWe9o9cJu8rDrW7XLm5HK55pCDAZElCRQzSHVmADhzpedn7z
 	- Another agent-based model of opinion spreading, in a network scenario. This one focusses on the spreading of unpopular opinions.
 
-## Reputation system
-
-- A Computational Model of Trust and Reputation - Lik Mui, Mojdeh 
-Mohtashemi, Ari Halberstadt
-	- https://www.computer.org/csdl/proceedings/hicss/2002/1435/07/14350188.pdf
-	- Reputation is the number of cooperations divided by the number 
-of interactions
-
-- Computational Models of Trust and Reputation: Agents, Evolutionary Games, and Social Networks - Lik Mui
-	- http://groups.csail.mit.edu/medg/ftp/lmui/computational%20models%20of%20trust%20and%20reputation.pdf
-	- Reputation is the number of cooperations divided by the number 
-of interactions (same reasoning as ^, same author)
-
 
 ## Network Reformation
 
