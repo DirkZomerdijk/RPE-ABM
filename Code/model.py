@@ -21,8 +21,6 @@ class Network(Model):
         self.node_list = self.random.sample(self.G.nodes(), self.num_agents)
         
         nx.set_edge_attributes(self.G, 1, 'connection_strength')
-        
-
 
         for i in range(self.num_agents):            
             a = agent(i, self)

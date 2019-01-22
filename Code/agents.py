@@ -32,14 +32,14 @@ class agent(Agent):
             if random.uniform(0,1) < probability_rate_A:
                 
                 self.opinion = 0
-                # print(K*(sum([(x - self.preference) for x in A_preference])))
-                self.preference = self.preference + K*(sum([(x - self.preference)%1 for x in A_preference]))
+
+                self.preference = self.preference + (K* sum([(x - self.preference) for x in A_preference]))
+                print((K* sum([(x - self.preference) for x in A_preference])))
                 # self.preference = probability_rate_A
             else:
                 self.opinion = 1
-                # print(K*(sum([(x - self.preference) for x in A_preference])))
-
-                self.preference = self.preference + K*(sum([(x - self.preference)%1 for x in B_preference]))
+                self.preference = self.preference + (K* sum([(x - self.preference) for x in B_preference]))
+                print((K* sum([(x - self.preference) for x in A_preference])))
                 # self.preference = probability_rate_B
 
     def choose_neighbors(self, neighbors):
