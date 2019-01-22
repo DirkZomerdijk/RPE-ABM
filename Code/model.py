@@ -20,9 +20,11 @@ class Network(Model):
 
         self.node_list = self.random.sample(self.G.nodes(), self.num_agents)
         
-        nx.set_edge_attributes(self.G, 1, 'connection_strength')
-        
 
+	# Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
+        nx.set_edge_attributes(self.G, 2, 'total_encounters')
+        nx.set_edge_attributes(self.G, 1, 'times_agreed')
+        
 
         for i in range(self.num_agents):            
             a = agent(i, self)
@@ -42,6 +44,7 @@ class Network(Model):
         # for edge in self.G.edges():
         #     # print(edge.connection_strength)
             
+<<<<<<< HEAD
         #     opinionA = self.G.nodes()[edge[0]]['agent'][0].opinion
         #     opinionB = self.G.nodes()[edge[1]]['agent'][0].opinion
         #     if(opinionA == opinionB):
@@ -49,11 +52,21 @@ class Network(Model):
         #     else:
         #         self.G.edges[edge[0], edge[1]]['connection_strength'] -= .1
 
+=======
+            opinionA = self.G.nodes()[edge[0]]['agent'][0].opinion
+            opinionB = self.G.nodes()[edge[1]]['agent'][0].opinion
+	
+            self.G.edges[edge[0], edge[1]]['total_encounters'] += 1
+	
+            if(opinionA == opinionB):
+                self.G.edges[edge[0], edge[1]]['times_agreed'] += 1
+>>>>>>> f2d52d9eb5f02a45294b2e59045509d9d5d4d9c7
             # print(opinionA)
             
             # break
 
 
+<<<<<<< HEAD
     # def update_edge(node1, node2):
     #     # Get opinion of agents
     #     opinionA = self.G.nodes()[node1]['agent'][0].opinion
@@ -65,6 +78,16 @@ class Network(Model):
     #     else:
     #         self.G.edges[node1, node2]['connection_strength'] -= .1
 
+=======
+    def update_edge(node1, node2):
+        # Get opinion of agents
+        opinionA = self.G.nodes()[node1]['agent'][0].opinion
+        opinionB = self.G.nodes()[node2]['agent'][0].opinion              
+        self.G.edges[node1, node2]['total_encounters'] += 1
+        # If agents share opinion, edge strength increases
+        if(opinionA == opinionB):
+            self.G.edges[node1, node2]['times_agreed'] += 1
+>>>>>>> f2d52d9eb5f02a45294b2e59045509d9d5d4d9c7
 
     def step(self):
         self.datacollector.collect(self)

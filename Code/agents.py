@@ -51,14 +51,25 @@ class agent(Agent):
             # if (self.opinion == 1) and (probability_rate_A < self.preference):
             #     self.select_B(B_preference)
             if random.uniform(0,1) < probability_rate_A:
+<<<<<<< HEAD
                 self.select_A(A_preference)
+=======
+                
+                self.opinion = 0
+
+                self.preference = self.preference + (K* sum([(x - self.preference) for x in A_preference]))
+                print((K* sum([(x - self.preference) for x in A_preference])))
+                # self.preference = probability_rate_A
+>>>>>>> f2d52d9eb5f02a45294b2e59045509d9d5d4d9c7
             else:
                 self.select_B(B_preference)
 
     def choose_neighbors(self, neighbors):
         selected_neighbors = []
         for neighbor in neighbors:
-            connection_strength = self.model.G.edges[self.pos, neighbor.pos]['connection_strength']
+            connection_strength = self.model.G.edges[self.pos, 
+neighbor.pos]['total_encounters']/self.model.G.edges[self.pos, 
+neighbor.pos]['times_agreed']
 
             if( connection_strength > np.random.uniform(0,1)):
                 selected_neighbors.append(neighbor)
