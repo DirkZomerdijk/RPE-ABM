@@ -62,7 +62,7 @@ class agent(Agent):
         """ Choose whitch neighbors to talk with based on reputation"""
         selected_neighbors = []
         for neighbor in neighbors:
-            connection_strength = self.model.G.edges[self.pos,neighbor.pos]['total_encounters']/self.model.G.edges[self.pos,neighbor.pos]['times_agreed']
+            connection_strength = self.model.G.edges[self.pos,neighbor.pos]['times_agreed']/self.model.G.edges[self.pos,neighbor.pos]['total_encounters']
 
             if( connection_strength > np.random.uniform(0,1)):
                 selected_neighbors.append(neighbor)
@@ -90,6 +90,7 @@ class agent(Agent):
         # print(self.preference)
 
     def step(self):
+        """ Function to intarate over time with the mesa modual"""
         # self.preference += 1
         self.talk()
         # print(self.unique_id)
