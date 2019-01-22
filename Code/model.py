@@ -39,31 +39,31 @@ class Network(Model):
 
         self.running = True
 
-        for edge in self.G.edges():
-            # print(edge.connection_strength)
+        # for edge in self.G.edges():
+        #     # print(edge.connection_strength)
             
-            opinionA = self.G.nodes()[edge[0]]['agent'][0].opinion
-            opinionB = self.G.nodes()[edge[1]]['agent'][0].opinion
-            if(opinionA == opinionB):
-                self.G.edges[edge[0], edge[1]]['connection_strength'] += .1
-            else:
-                self.G.edges[edge[0], edge[1]]['connection_strength'] -= .1
+        #     opinionA = self.G.nodes()[edge[0]]['agent'][0].opinion
+        #     opinionB = self.G.nodes()[edge[1]]['agent'][0].opinion
+        #     if(opinionA == opinionB):
+        #         self.G.edges[edge[0], edge[1]]['connection_strength'] += .1
+        #     else:
+        #         self.G.edges[edge[0], edge[1]]['connection_strength'] -= .1
 
             # print(opinionA)
             
             # break
 
 
-    def update_edge(node1, node2):
-        # Get opinion of agents
-        opinionA = self.G.nodes()[node1]['agent'][0].opinion
-        opinionB = self.G.nodes()[node2]['agent'][0].opinion              
+    # def update_edge(node1, node2):
+    #     # Get opinion of agents
+    #     opinionA = self.G.nodes()[node1]['agent'][0].opinion
+    #     opinionB = self.G.nodes()[node2]['agent'][0].opinion              
         
-        # If agents share opinion, edge strength increases
-        if(opinionA == opinionB):
-            self.G.edges[node1, node2]['connection_strength'] += .1
-        else:
-            self.G.edges[node1, node2]['connection_strength'] -= .1
+    #     # If agents share opinion, edge strength increases
+    #     if(opinionA == opinionB):
+    #         self.G.edges[node1, node2]['connection_strength'] += .1
+    #     else:
+    #         self.G.edges[node1, node2]['connection_strength'] -= .1
 
 
     def step(self):
