@@ -28,7 +28,11 @@ class Network(Model):
         
         self.datacollector = DataCollector(
             model_reporters={
-                "preferences": compute_opinions
+                "preferences": compute_preferences,
+                "opinions": compute_opinions,
+                "preference_A": compute_preference_A,
+                "preference_B": compute_preference_B,
+                "radical_opinions": compute_radical_opinions
             },
             agent_reporters={
                 "preference": "preference",

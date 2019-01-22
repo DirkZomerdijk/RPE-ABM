@@ -55,6 +55,29 @@ def compute_opinions(model):
     agent_opinions = [agent.opinion for agent in model.schedule.agents]
     return np.mean(agent_opinions)
 
+#computes average preference of agents with opinion 
+def compute_preference_A(model):
+    preference_A = []
+    for agent in model.schedule.agents:
+        if (agent.opinion == 0): preference_A.append(agent.preference)
+    return np.mean(preference_A)
+
+def compute_preference_B(model):
+    preference_B = []
+    for agent in model.schedule.agents:
+        if (agent.opinion == 0): preference_B.append(agent.preference)
+    return np.mean(preference_B)
+
+#Computes percentage of those holding radical opinions (>0.8)
+def compute_radical_opinions(model):
+    radical_counter = 0
+    for agent in model.schedule.agents:
+        if (agent.preference >0.8): radical_counter += 1
+    return radical_counter/model.num_agents
+
+#def community_no(model):
+#    commuity_partitions = community.best_partition(model.G, weight='weight')
+
 
 def select_network_type(network_type, N, no_of_neighbors, beta_component):
     print(network_type)
