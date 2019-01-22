@@ -45,7 +45,9 @@ class agent(Agent):
     def choose_neighbors(self, neighbors):
         selected_neighbors = []
         for neighbor in neighbors:
-            connection_strength = self.model.G.edges[self.pos, neighbor.pos]['connection_strength']
+            connection_strength = self.model.G.edges[self.pos, 
+neighbor.pos]['total_encounters']/self.model.G.edges[self.pos, 
+neighbor.pos]['times_agreed']
 
             if( connection_strength > np.random.uniform(0,1)):
                 selected_neighbors.append(neighbor)
