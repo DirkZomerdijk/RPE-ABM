@@ -20,11 +20,10 @@ class Network(Model):
 
         self.node_list = self.random.sample(self.G.nodes(), self.num_agents)
         
-	# Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
+	   # Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
         nx.set_edge_attributes(self.G, 2, 'total_encounters')
         nx.set_edge_attributes(self.G, 1, 'times_agreed')
         
-
 
         for i in range(self.num_agents):            
             a = agent(i, self)
@@ -66,6 +65,8 @@ class Network(Model):
             self.G.edges[node1, node2]['times_agreed'] += 1
 
     def step(self):
+        # nx.draw(self.G, pos=nx.spring_layout(self.G))
+        # plt.show()
         self.datacollector.collect(self)
         self.schedule.step()
         # print("new step")

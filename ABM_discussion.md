@@ -13,7 +13,6 @@
 - environment:
 	- random network
 		- dynamic?
-	- 
 
 
 - Reputation system

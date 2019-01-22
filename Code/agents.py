@@ -12,6 +12,23 @@ class agent(Agent):
         # print(self.preference)
 
 
+    def select_A(self, A_preference):
+        if self.opinion == 1:
+            self.preference = 1 - self.preference
+        
+        self.opinion = 0
+        self.preference = self.preference + (K* sum([(x - self.preference) for x in A_preference]))
+        print((K* sum([(x - self.preference) for x in A_preference])))
+
+    def select_B(self, B_preference):
+        if self.opinion == 0:
+            self.preference = 1 - self.preference
+
+        self.opinion = 1
+        self.preference = self.preference + (K* sum([(x - self.preference) for x in B_preference]))
+        print((K* sum([(x - self.preference) for x in B_preference])))
+
+
     def form_opinion(self, neighbors):
         #function 
         neighbor_preference = []
@@ -29,25 +46,21 @@ class agent(Agent):
             probability_rate_A = sum(A_preference)/sum(neighbor_preference)
             probability_rate_B = sum(B_preference)/sum(neighbor_preference)
 
+            if (self.opinion == 0) and (probability_rate_B < self.preference):
+                self.select_A(A_preference)
+            
+            if (self.opinion == 1) and (probability_rate_A < self.preference):
+                self.select_B(B_preference)
             if random.uniform(0,1) < probability_rate_A:
-                
-                self.opinion = 0
-                # print(K*(sum([(x - self.preference) for x in A_preference])))
-                self.preference = self.preference + K*(sum([(x - self.preference)%1 for x in A_preference]))
-                # self.preference = probability_rate_A
+                self.select_A(A_preference)
             else:
-                self.opinion = 1
-                # print(K*(sum([(x - self.preference) for x in A_preference])))
+                self.select_B(B_preference)
 
-                self.preference = self.preference + K*(sum([(x - self.preference)%1 for x in B_preference]))
-                # self.preference = probability_rate_B
 
     def choose_neighbors(self, neighbors):
         selected_neighbors = []
         for neighbor in neighbors:
-            connection_strength = self.model.G.edges[self.pos, 
-neighbor.pos]['total_encounters']/self.model.G.edges[self.pos, 
-neighbor.pos]['times_agreed']
+            connection_strength = self.model.G.edges[self.pos,neighbor.pos]['total_encounters']/self.model.G.edges[self.pos,neighbor.pos]['times_agreed']
 
             if( connection_strength > np.random.uniform(0,1)):
                 selected_neighbors.append(neighbor)
