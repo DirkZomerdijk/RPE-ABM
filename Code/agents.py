@@ -62,15 +62,15 @@ class agent(Agent):
         """ Choose whitch neighbors to talk with based on reputation"""
         selected_neighbors = []
         for neighbor in neighbors:
-            connection_strength = self.model.G.edges[self.pos,neighbor.pos]['times_agreed']/self.model.G.edges[self.pos,neighbor.pos]['total_encounters']
+            reputation = self.model.G.edges[self.pos,neighbor.pos]['times_agreed']/self.model.G.edges[self.pos,neighbor.pos]['total_encounters']
 
-            if( connection_strength > np.random.uniform(0,1)):
+            if( reputation > np.random.uniform(0,1)):
                 selected_neighbors.append(neighbor)
-                if(connection_strength < high_edge_strength):
-                    connection_strength += edge_strength_chance
+                if(reputation < high_edge_strength):
+                    reputation += edge_strength_chance
             else: 
-                if(connection_strength > low_edge_strength):
-                    connection_strength -= edge_strength_chance
+                if(reputation > low_edge_strength):
+                    reputation -= edge_strength_chance
 
         return selected_neighbors
 
@@ -82,6 +82,7 @@ class agent(Agent):
         neigbors_nodes = self.model.grid.get_neighbors(self.pos, include_center = False)
         neighbors = self.model.grid.get_cell_list_contents(neigbors_nodes)
         selected_neighbors = self.choose_neighbors(neighbors)
+
 
         self.form_opinion(selected_neighbors)
 
