@@ -3,6 +3,7 @@ from globals import *
 import random
 import networkx as nx
 from scipy.stats import norm
+import matplotlib.pyplot as plt
 
 def get_preference_list(N):
     preference_list = []
@@ -74,6 +75,42 @@ def compute_radical_opinions(model):
     for agent in model.schedule.agents:
         if (agent.preference >0.8): radical_counter += 1
     return radical_counter/model.num_agents
+
+def return_network(model):
+    nodes_A = []
+    nodes_B = []
+    nodes_preferences_A = []
+    nodes_preferences_B = []
+    reputations = list(nx.get_edge_attributes(model.G,'reputation').values())
+    # print(reputations)
+    # model.layout = nx.spring_layout(model.G, dim=2)
+
+    for node in model.G.nodes():
+        model.G.nodes()[node]['opinion'] = model.G.nodes()[node]["agent"][0].opinion
+        model.G.nodes()[node]['preference'] = model.G.nodes()[node]["agent"][0].preference
+        model.G.nodes()[node]['id'] = node
+
+        if model.G.nodes()[node]['opinion'] == 0:
+            nodes_A.append(node)
+            nodes_preferences_A.append(model.G.nodes()[node]["agent"][0].preference)
+
+        else:
+            nodes_B.append(node)
+            nodes_preferences_B.append(model.G.nodes()[node]["agent"][0].preference)
+
+    fig = plt.figure(dpi=500)
+    nx.draw_networkx_nodes(model.G, model.layout, node_size=50, node_color=nodes_preferences_A, nodelist=nodes_A, cmap=plt.cm.Blues)
+    nx.draw_networkx_nodes(model.G, model.layout, node_size=50, node_color=nodes_preferences_B, nodelist=nodes_B, cmap=plt.cm.Reds)
+    nx.draw_networkx_edges(model.G, model.layout, alpha=0.5, width=[(rep*10) for rep in reputations])
+    plt.axis('off')
+    # plt.show()
+    fig.canvas.draw()       # draw the canvas, cache the renderer
+    image = np.frombuffer(fig.canvas.tostring_rgb(), dtype='uint8')
+    image  = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+
+    return image
+    # G = nx.draw_networkx(model.G, model.layout,node_color=)
+    # plt.show()
 
 #def community_no(model):
 #    commuity_partitions = community.best_partition(model.G, weight='weight')
