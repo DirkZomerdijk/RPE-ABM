@@ -11,5 +11,5 @@ from model import *  # omit this in jupyter notebooks
 # run
 from server import server
 
-server.port = 8243 # The default
+server.port = 8244 # The default
 server.launch()
