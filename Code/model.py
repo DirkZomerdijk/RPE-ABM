@@ -44,7 +44,7 @@ class Network(Model):
                 "preference": "preference",
             }) 
 
-        # self.running = True
+        self.running = True
         # return_network(self)
 
     # place agents on network
@@ -74,7 +74,7 @@ class Network(Model):
         self.perturb_network()
         self.schedule.step()
         self.step_no +=1
-        print(nx.get_edge_attributes(self.G, 'reputation'))
+        # print(nx.get_edge_attributes(self.G, 'reputation'))
 
     def perturb_network(self):
         agent_nodes = np.random.randint(self.num_agents, size=(1,self.swingers))

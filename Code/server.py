@@ -16,6 +16,8 @@ def network_portrayal(G):
                           'color': '#caeab7' if not agents or agents[0].opinion == 0 else '#e38783',
                           # 'label': 'Agent:{} preference:{}'.format(agents[0].unique_id, agents[0].preference),
                           # 'label': 'preference:{0:.2f}'.format(agents[0].preference),
+                          'label': 'opinion:{0:.2f}'.format(agents[0].opinion),
+
 
                         }
                         for (node_id, agents) in G.nodes.data('agent')]
@@ -33,7 +35,7 @@ def network_portrayal(G):
 
 
 grid = NetworkModule(network_portrayal, 400, 600, library='sigma')
-chart = ChartModule([{"Label": "preferences",
+chart = ChartModule([{"Label": "opinions",
                       "Color": "Black"
                     }], data_collector_name='datacollector')
 
