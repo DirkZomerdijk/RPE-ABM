@@ -4,6 +4,9 @@ import random
 import networkx as nx
 from scipy.stats import norm
 import matplotlib.pyplot as plt
+import community as com
+from collections import Counter
+
 
 def get_preference_list(N):
     preference_list = []
@@ -121,9 +124,26 @@ def return_network(model):
     # G = nx.draw_networkx(model.G, model.layout,node_color=)
     # plt.show()
 
-#def community_no(model):
-#    commuity_partitions = community.best_partition(model.G, weight='weight')
+def community_test(model):
+    community_partitions = com.best_partition(model.G, weight='reputation')
+    value, count = Counter(community_partitions.values()).most_common(1)[0]
+    pop_agents = []
+    for a in model.G.nodes():
+        if(community_partitions.get(a)==value):
+            pop_agents.append(model.schedule.agents[a])
 
+    pop_pref = 0
+    pop_opi = 0
+    for x in pop_agents:
+        pop_opi += x.opinion
+        pop_pref += x.preference
+    pop_opi = pop_opi/len(pop_agents)
+    pop_pref = pop_pref/len(pop_agents)
+    return pop_opi, pop_pref, compute_opinions(model)
+
+def community_no(model):
+    community_partitions = com.best_partition(model.G, weight='reputation')
+    return max(community_partitions.values())
 
 def select_network_type(network_type, N, no_of_neighbors, beta_component):
     # print(network_type)
