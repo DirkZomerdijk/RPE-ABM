@@ -58,5 +58,4 @@ model_params = {
     "swingers": swingers_slider,
 }  
 
-
 server = ModularServer(Network, [grid,chart], "NetworkModel", model_params) 
