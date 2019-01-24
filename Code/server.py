@@ -42,12 +42,14 @@ agents_slider = UserSettableParameter('slider', "Number of Agents", 10, 2, 800, 
 neighbors_slider = UserSettableParameter('slider', "Number of Neighbors", 3, 2, 10, 1)
 network_slider = UserSettableParameter('slider', "Network Type", 1,1,2,1)
 beta_slider = UserSettableParameter('slider', "Beta Component (Only for Watts-Strogatz [1])", 0.5, 0,1,0.01)
+similarity_slider = UserSettableParameter('slider', "Similarity Treshold", 0.025, 0,0.5,0.001)
 
 model_params = {
     "N": agents_slider,
     "no_of_neighbors": neighbors_slider,
     "network_type": network_slider, 
     "beta_component": beta_slider,
+    "similarity_treshold":similarity_slider,
 }  
 
 

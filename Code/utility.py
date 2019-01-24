@@ -25,8 +25,17 @@ def mean_neighbor_preference(neighbors):
 def set_rand_unifrom_preference():
     return np.random.uniform(0,1)
 
-def set_rand_normal_preference():
-    return norm(0,1).pdf(np.random.randint(0,99))
+def get_rand_similarity(similarity_treshold):
+    lower_treshold = 0.0
+    upper_treshold = similarity_treshold*2
+    sample = 10
+    while sample > upper_treshold or sample < lower_treshold:
+        sample = random.gauss(similarity_treshold, np.std([lower_treshold, similarity_treshold, upper_treshold]))
+        
+    return sample
+
+# def set_rand_normal_preference():
+#     return norm(0,1).pdf(np.random.randint(0,99))
 
 
 def set_type():
@@ -103,12 +112,14 @@ def return_network(model):
     nx.draw_networkx_nodes(model.G, model.layout, node_size=50, node_color=nodes_preferences_B, nodelist=nodes_B, cmap=plt.cm.Reds)
     nx.draw_networkx_edges(model.G, model.layout, alpha=0.5, width=[(rep*10) for rep in reputations])
     plt.axis('off')
-    # plt.show()
-    fig.canvas.draw()       # draw the canvas, cache the renderer
-    image = np.frombuffer(fig.canvas.tostring_rgb(), dtype='uint8')
-    image  = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
 
-    return image
+
+
+    plt.savefig('img/fig'+str(model.step_no)+'.png', dpi=500, facecolor='w', edgecolor='w',
+            orientation='portrait', papertype=None, format=None,
+            transparent=False, bbox_inches=None, pad_inches=0.1,
+            frameon=None, metadata=None)    
+    # plt.show()
     # G = nx.draw_networkx(model.G, model.layout,node_color=)
     # plt.show()
 

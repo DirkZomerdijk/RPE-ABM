@@ -75,11 +75,11 @@ class agent(Agent):
 
             reputation = self.model.G.edges[own_position,neighbor_position]['reputation']
 
-            if(neighbor_opinion == own_opinion):
+            # if(neighbor_opinion == own_opinion):
                 # print('similar_opinion')
                 # print(abs(neighbor_preference - own_preference))
-                if(abs(neighbor_preference - own_preference) < similarity_treshold):
-                    similar_neighbors.append(neighbor)
+            if(abs(neighbor_preference - own_preference) < get_rand_similarity(self.model.similarity_treshold)):
+                similar_neighbors.append(neighbor)
             else:
                 # print('different opinion')
                 if( reputation > np.random.uniform(0,1)):

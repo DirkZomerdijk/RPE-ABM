@@ -20,3 +20,6 @@ network_type = 'barabasi_albert'
 
 
 similarity_treshold = .1
+similarity_treshold_arr = []
+
+# run_count = 0

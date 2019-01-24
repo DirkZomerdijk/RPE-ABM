@@ -12,7 +12,7 @@ from mesa.datacollection import DataCollector
 
 class Network(Model):
 
-    def __init__(self, N, no_of_neighbors, network_type, beta_component):  
+    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold):  
         self.num_agents = N
         self.G = select_network_type(network_type, N, no_of_neighbors, beta_component) #nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
         self.grid = NetworkGrid(self.G)
@@ -20,6 +20,8 @@ class Network(Model):
         # self.node_positions = nx.spring_layout(self.G)
         self.node_list = self.random.sample(self.G.nodes(), self.num_agents)
         self.layout = nx.spring_layout(self.G, dim=2)
+        self.step_no = 0
+        self.similarity_treshold = similarity_treshold
 	   # Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
         nx.set_edge_attributes(self.G, 2, 'total_encounters')
         nx.set_edge_attributes(self.G, 1, 'times_agreed')
@@ -34,7 +36,7 @@ class Network(Model):
                 "preference_A": compute_preference_A,
                 "preference_B": compute_preference_B,
                 "radical_opinions": compute_radical_opinions,
-                "graph": return_network
+                # "graph": return_network
             },
             agent_reporters={
                 "preference": "preference",
@@ -71,5 +73,6 @@ class Network(Model):
         # plt.show()
         self.datacollector.collect(self)
         self.schedule.step()
+        self.step_no +=1
 
 
