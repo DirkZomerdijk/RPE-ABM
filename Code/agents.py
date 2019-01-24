@@ -19,7 +19,7 @@ class agent(Agent):
             self.preference = 1 - self.preference
         
         self.opinion = 0
-        update_preference(self.preference, A_preference)
+        self.update_preference(A_preference)
 
     def select_B(self, B_preference):
         """ Adapt preference score and opinion to A"""
@@ -27,7 +27,7 @@ class agent(Agent):
             self.preference = 1 - self.preference
 
         self.opinion = 1
-        update_preference(self.preference, B_preference)
+        self.update_preference(B_preference)
 
     def form_opinion(self, neighbors):
         """ Function to determine if opninion needs to be adapted based on neighbors""" 
@@ -92,9 +92,13 @@ class agent(Agent):
             return selected_neighbors
 
     def update_reputation(self, neighbor_position):
+        print('update preference')
         self.model.update_edge(self.pos, neighbor_position)
 
         # print('rep of node ' +str(self.pos)+' and '+str(neighbor.pos)+': ' +str(self.model.G.edges[self.pos, neighbor.pos]['reputation']))
+
+    def update_preference(self, neighbors_preference):
+        self.preference = self.preference + (self.model.social_influence * sum([(neighbor - self.preference) for neighbor in neighbors_preference]))
 
     def talk(self):
         '''

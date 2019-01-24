@@ -12,8 +12,6 @@ def get_preference_list(N):
 
     return preference_list
 
-def update_preference(my_preference, neighbors_preference):
-    my_preference = my_preference + (K* sum([(neighbor - my_preference) for neighbor in neighbors_preference]))
 
 def mean_neighbor_preference(neighbors):
     neighbor_preference = []
@@ -54,7 +52,7 @@ def play_game(payoff_matrix):
         choiceA = np.where(eq[0] == max(eq[0]))[0]
         choiceB = np.where(eq[1] == max(eq[1]))[0]
 
-        print(payoff_matrix[choiceA[0]][choiceB][0])
+        # print(payoff_matrix[choiceA[0]][choiceB][0])
 
 
 def compute_preferences(model):
@@ -128,12 +126,12 @@ def return_network(model):
 
 
 def select_network_type(network_type, N, no_of_neighbors, beta_component):
-    print(network_type)
+    # print(network_type)
     if(network_type == 1):
-        print('watts_strogatz')
+        # print('watts_strogatz')
         return nx.watts_strogatz_graph(N, no_of_neighbors, beta_component, seed=None)
     elif(network_type == 2):
-        print('barabasi_albert')
+        # print('barabasi_albert')
         return nx.barabasi_albert_graph(N, no_of_neighbors, seed=None)
 
 def set_opinion():
