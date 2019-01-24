@@ -44,8 +44,8 @@ class Network(Model):
                 "preference": "preference",
             }) 
 
-        self.running = True
-
+        # self.running = True
+        # return_network(self)
 
     # place agents on network
     def place_agents(self):
@@ -60,15 +60,12 @@ class Network(Model):
         opinionA = self.G.nodes()[node1]['agent'][0].opinion
         opinionB = self.G.nodes()[node2]['agent'][0].opinion   
 
-        total_encounters = self.G.edges[node1, node2]['total_encounters']      
-        times_agreed = self.G.edges[node1, node2]['times_agreed']
-
-        total_encounters += 1
+        self.G.edges[node1, node2]['total_encounters'] += 1
         # If agents share opinion, edge strength increases
         if(opinionA == opinionB):
-            times_agreed += 1
+            self.G.edges[node1, node2]['times_agreed'] += 1
 
-        self.G.edges[node1, node2]['reputation'] = times_agreed /  total_encounters
+        self.G.edges[node1, node2]['reputation'] = self.G.edges[node1, node2]['times_agreed'] /  self.G.edges[node1, node2]['total_encounters']      
 
     def step(self):
         # nx.draw(self.G, pos=nx.spring_layout(self.G))
@@ -77,6 +74,7 @@ class Network(Model):
         self.perturb_network()
         self.schedule.step()
         self.step_no +=1
+        print(nx.get_edge_attributes(self.G, 'reputation'))
 
     def perturb_network(self):
         agent_nodes = np.random.randint(self.num_agents, size=(1,self.swingers))

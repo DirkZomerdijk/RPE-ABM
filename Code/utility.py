@@ -106,18 +106,18 @@ def return_network(model):
             nodes_preferences_B.append(model.G.nodes()[node]["agent"][0].preference)
 
     fig = plt.figure(dpi=500)
-    nx.draw_networkx_nodes(model.G, model.layout, node_size=50, node_color=nodes_preferences_A, nodelist=nodes_A, cmap=plt.cm.Blues)
-    nx.draw_networkx_nodes(model.G, model.layout, node_size=50, node_color=nodes_preferences_B, nodelist=nodes_B, cmap=plt.cm.Reds)
-    nx.draw_networkx_edges(model.G, model.layout, alpha=0.5, width=[(rep*10) for rep in reputations])
+    nx.draw_networkx_nodes(model.G, model.layout, node_size=1, node_color=nodes_preferences_A, nodelist=nodes_A, cmap=plt.cm.Blues)
+    nx.draw_networkx_nodes(model.G, model.layout, node_size=1, node_color=nodes_preferences_B, nodelist=nodes_B, cmap=plt.cm.Reds)
+    nx.draw_networkx_edges(model.G, model.layout, alpha=0.5, width=[(rep) for rep in reputations])
     plt.axis('off')
 
 
 
-    plt.savefig('img/fig'+str(model.step_no)+'.png', dpi=500, facecolor='w', edgecolor='w',
+    plt.savefig('img/fig'+str(model.step_no)+'.png', dpi=800, facecolor='w', edgecolor='w',
             orientation='portrait', papertype=None, format=None,
             transparent=False, bbox_inches=None, pad_inches=0.1,
             frameon=None, metadata=None)    
-    # plt.show()
+    plt.show()
     # G = nx.draw_networkx(model.G, model.layout,node_color=)
     # plt.show()
 
