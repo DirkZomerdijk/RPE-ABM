@@ -75,7 +75,7 @@ def compute_preference_A(model):
 def compute_preference_B(model):
     preference_B = []
     for agent in model.schedule.agents:
-        if (agent.opinion == 0): preference_B.append(agent.preference)
+        if (agent.opinion == 1): preference_B.append(agent.preference)
     return np.mean(preference_B)
 
 #Computes percentage of those holding radical opinions (>0.8)
