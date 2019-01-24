@@ -64,27 +64,29 @@ class agent(Agent):
         similar_neighbors = []
         for neighbor in neighbors:
             # reputation = self.model.G.edges[self.pos,neighbor.pos]['times_agreed']/self.model.G.edges[self.pos,neighbor.pos]['total_encounters']
-            neighbor_preference = neighbor.preference
-            own_preference = self.preference
+            # neighbor_preference = neighbor.preference
+            # own_preference = self.preference
             
-            neighbor_opinion = neighbor.opinion
-            own_opinion = self.opinion
+            # neighbor_opinion = neighbor.opinion
+            # own_opinion = self.opinion
 
-            neighbor_position  = neighbor.pos
-            own_position = self.pos
+            # neighbor_position  = neighbor.pos
+            # own_position = self.pos
 
-            reputation = self.model.G.edges[own_position,neighbor_position]['reputation']
+            reputation = self.model.G.edges[self.pos,neighbor.pos]['reputation']
 
             # if(neighbor_opinion == own_opinion):
                 # print('similar_opinion')
                 # print(abs(neighbor_preference - own_preference))
-            if(abs(neighbor_preference - own_preference) < get_rand_similarity(self.model.similarity_treshold)):
+            if(abs(neighbor.preference - self.preference) < get_rand_similarity(self.model.similarity_treshold)):
+                # print('similar')
                 similar_neighbors.append(neighbor)
             else:
+                # print('dissimilar')
                 # print('different opinion')
                 if( reputation > np.random.uniform(0,1)):
                     selected_neighbors.append(neighbor)
-                    self.update_reputation(neighbor_position)
+                    self.update_reputation(neighbor.pos)
 
         if(len(similar_neighbors) != 0):
             return similar_neighbors
@@ -92,7 +94,7 @@ class agent(Agent):
             return selected_neighbors
 
     def update_reputation(self, neighbor_position):
-        print('update preference')
+        # print('update preference')
         self.model.update_edge(self.pos, neighbor_position)
 
         # print('rep of node ' +str(self.pos)+' and '+str(neighbor.pos)+': ' +str(self.model.G.edges[self.pos, neighbor.pos]['reputation']))
