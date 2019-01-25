@@ -124,26 +124,34 @@ def return_network(model):
     # G = nx.draw_networkx(model.G, model.layout,node_color=)
     # plt.show()
 
-def community_test(model):
-    community_partitions = com.best_partition(model.G, weight='reputation')
-    value, count = Counter(community_partitions.values()).most_common(1)[0]
-    pop_agents = []
-    for a in model.G.nodes():
-        if(community_partitions.get(a)==value):
-            pop_agents.append(model.schedule.agents[a])
+def get_communities(model):
+    return com.best_partition(model.G, weight='reputation')
 
-    pop_pref = 0
-    pop_opi = 0
-    for x in pop_agents:
-        pop_opi += x.opinion
-        pop_pref += x.preference
-    pop_opi = pop_opi/len(pop_agents)
-    pop_pref = pop_pref/len(pop_agents)
-    return pop_opi, pop_pref, compute_opinions(model)
+#From largest to smallest. Default largest community.
+def community_all(model):
+    community_partitions = get_communities(model)
+    no = max(community_partitions.values())
+    coms = []
+    for i in range(no):
+        value, count = Counter(community_partitions.values()).most_common(no+1)[i]
+        pop_agents = []
+        for a in model.G.nodes():
+            if(community_partitions.get(a)==value):
+                pop_agents.append(model.schedule.agents[a])
+
+        pop_pref = 0
+        pop_opi = 0
+        for x in pop_agents:
+            pop_opi += x.opinion
+            pop_pref += x.preference
+        pop_opi = pop_opi/len(pop_agents)
+        pop_pref = pop_pref/len(pop_agents)
+        coms.append([pop_opi, pop_pref, count])
+    return coms
 
 def community_no(model):
-    community_partitions = com.best_partition(model.G, weight='reputation')
-    return max(community_partitions.values())
+    community_partitions = get_communities(model)
+    return max(community_partitions.values())+1
 
 def select_network_type(network_type, N, no_of_neighbors, beta_component):
     # print(network_type)
