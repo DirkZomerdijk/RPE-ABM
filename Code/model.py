@@ -38,8 +38,8 @@ class Network(Model):
                 "preference_A": compute_preference_A,
                 "preference_B": compute_preference_B,
                 "radical_opinions": compute_radical_opinions,
-                "community": community_test,
-                "community_no": community_no
+                "community_no": community_no,
+                "community_all": community_all
                 # "graph": return_network
             },
             agent_reporters={
