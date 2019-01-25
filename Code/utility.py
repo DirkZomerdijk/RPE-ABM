@@ -5,6 +5,7 @@ import networkx as nx
 from scipy.stats import norm
 import matplotlib.pyplot as plt
 import community as com
+from community.community_louvain import best_partition
 from collections import Counter
 
 
@@ -125,7 +126,7 @@ def return_network(model):
     # plt.show()
 
 def get_communities(model):
-    return com.best_partition(model.G, weight='reputation')
+    return best_partition(model.G, weight='reputation')
 
 #From largest to smallest. Default largest community.
 def community_all(model):
