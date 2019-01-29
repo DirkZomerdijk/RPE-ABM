@@ -6,13 +6,13 @@ from agents import *
 from utility import *
 from mesa.space import NetworkGrid
 from mesa.datacollection import DataCollector
-
+from heapq import nlargest
 
 
 
 class Network(Model):
 
-    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers):  
+    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N):  
         self.num_agents = N
         self.G = select_network_type(network_type, N, no_of_neighbors, beta_component) #nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
         self.grid = NetworkGrid(self.G)
@@ -24,12 +24,15 @@ class Network(Model):
         self.similarity_treshold = similarity_treshold
         self.social_influence = social_influence
         self.swingers = swingers
+        self.malicious_N = malicious_N
 	   # Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
         nx.set_edge_attributes(self.G, 2, 'total_encounters')
         nx.set_edge_attributes(self.G, 1, 'times_agreed')
         nx.set_edge_attributes(self.G, .5, 'reputation')
         
         self.place_agents()
+
+        self.set_malicious()
         
         self.datacollector = DataCollector(
             model_reporters={
@@ -85,3 +88,11 @@ class Network(Model):
             agent.opinion = np.random.randint(2)
             agent.preference = set_rand_unifrom_preference()
 
+    def set_malicious(self):
+        centrality_dict = nx.degree_centrality(self.G)  
+        most_central = nlargest(self.malicious_N, centrality_dict, key=centrality_dict.get)
+        test = 0
+        for a in most_central:
+            self.G.nodes()[a]["agent"][0].opinion = 0
+            self.G.nodes()[a]["agent"][0].preference = 1
+            
