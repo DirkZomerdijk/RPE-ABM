@@ -47,6 +47,8 @@ beta_slider = UserSettableParameter('slider', "Beta Component (Only for Watts-St
 similarity_slider = UserSettableParameter('slider', "Similarity Treshold", 0.025, 0,0.1,0.001)
 social_influence_slider = UserSettableParameter('slider', "Social Influence", 0.01, 0,0.1,0.01)
 swingers_slider = UserSettableParameter('slider', "Swingers p Timestep", 4, 0,100,2)
+malicious_slider = UserSettableParameter('slider', "Number of Malicious Agents", 0, 0,20,1)
+
 
 model_params = {
     "N": agents_slider,
@@ -56,6 +58,7 @@ model_params = {
     "similarity_treshold":similarity_slider,
     "social_influence":social_influence_slider,
     "swingers": swingers_slider,
+    "malicious_N": malicious_slider,
 }  
 
 server = ModularServer(Network, [grid,chart], "NetworkModel", model_params) 
