@@ -48,7 +48,7 @@ similarity_slider = UserSettableParameter('slider', "Similarity Treshold", 0.025
 social_influence_slider = UserSettableParameter('slider', "Social Influence", 0.01, 0,0.1,0.01)
 swingers_slider = UserSettableParameter('slider', "Swingers p Timestep", 4, 0,100,2)
 malicious_slider = UserSettableParameter('slider', "Number of Malicious Agents", 0, 0,20,1)
-echo_slider = UserSettableParameter('slider', "Threshold for Echo Chamber Classification", 0, 0, 0.5, 0.01)
+echo_slider = UserSettableParameter('slider', "Threshold for Echo Chamber Classification", .25, 0, 0.5, 0.01)
 
 
 model_params = {
