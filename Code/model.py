@@ -12,7 +12,7 @@ from heapq import nlargest
 
 class Network(Model):
 
-    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N):  
+    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N, echo_threshold):  
         self.num_agents = N
         self.G = select_network_type(network_type, N, no_of_neighbors, beta_component) #nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
         self.grid = NetworkGrid(self.G)
@@ -25,6 +25,7 @@ class Network(Model):
         self.social_influence = social_influence
         self.swingers = swingers
         self.malicious_N = malicious_N
+        self.echo_threshold = echo_threshold
 	   # Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
         nx.set_edge_attributes(self.G, 2, 'total_encounters')
         nx.set_edge_attributes(self.G, 1, 'times_agreed')
@@ -44,6 +45,7 @@ class Network(Model):
                 "community_no": community_no,
                 "community_all": community_all,
                 "silent_spiral": compute_silent_spiral
+                "echo_no": echo_no
                 # "graph": return_network
             },
             agent_reporters={
