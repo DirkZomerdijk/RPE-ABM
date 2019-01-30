@@ -35,6 +35,7 @@ class agent(Agent):
         A_preference = []
         B_preference = []
 
+
         for neighbor in neighbors:
             neighbor_preference.append(neighbor.preference)
             if neighbor.opinion == 0:

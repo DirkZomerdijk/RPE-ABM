@@ -42,7 +42,8 @@ class Network(Model):
                 "preference_B": compute_preference_B,
                 "radical_opinions": compute_radical_opinions,
                 "community_no": community_no,
-                "community_all": community_all
+                "community_all": community_all,
+                "silent_spiral": compute_silent_spiral
                 # "graph": return_network
             },
             agent_reporters={

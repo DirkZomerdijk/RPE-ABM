@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import community as com
 from community.community_louvain import best_partition
 from collections import Counter
-
+from operator import itemgetter
 
 def get_preference_list(N):
     preference_list = []
@@ -168,3 +168,72 @@ def set_opinion():
         return 0
     else:
         return 1
+
+def compute_silent_spiral(model):
+
+    opinions = []
+    node_information = []
+
+    for node in model.G.nodes():
+        neighbors_nodes = model.grid.get_neighbors(node, include_center = False)
+        node_opinion = model.G.nodes[node]['agent'][0].opinion
+        opinions.append(node_opinion)
+        
+        connectivity = 0        
+        # connections = len(neighbors_nodes)
+        
+
+        for neighbor_node in neighbors_nodes:
+            connectivity += model.G.edges[node,neighbor_node]['reputation']
+
+        # node_information.append([node, node_opinion,connectivity/connections])
+        node_information.append([node, node_opinion,connectivity])
+
+
+    node_information.sort(key=itemgetter(2))
+    # print(node_information)
+    Bs = sum(opinions)
+    As = len(opinions)-Bs
+
+    if(As > Bs):
+        major = 0
+    else:
+        major = 1
+
+
+    # print(Bs, As)
+    # print(int(len(node_information)*.1))
+    # print([1 if node[1] == major else 0 for node in node_information[:int(len(node_information)*.05)]])
+    perc_of_major = sum([1 if node[1] == major else 0 for node in node_information[:int(len(node_information)*.05)]])/int(model.num_agents*.1)
+    return perc_of_major
+        # node_reputations[node]['opinion'] = node_opinion
+        # if node_opinion == 0:
+        #     # print()
+        #     maj_min['A'].append((node,node_reputations[node]))
+        # else:
+        #     maj_min['B'].append((node,node_reputations[node]))
+
+    # if len(maj_min['A']) > len(maj_min['B']):
+    #     major = 'A'
+    #     minor = 'B'
+    # else:
+    #     major = 'B'
+    #     minor = 'A'
+
+    # major_
+
+    # print(node_reputations)
+    # print()
+    # print(maj_min)
+    # print()
+    # print(connectivities)
+
+
+        # print(nx.average_degree_connectivity(model.G, weight = 'weight'))
+    # no_A = len(maj_min['A']) 
+    # no_B = len(maj_min['B'])
+
+
+
+    # print(no_A, no_B, no_A/no_B)
+    # print(maj_min)
