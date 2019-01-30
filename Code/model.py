@@ -97,4 +97,4 @@ class Network(Model):
         for a in most_central:
             self.G.nodes()[a]["agent"][0].opinion = 0
             self.G.nodes()[a]["agent"][0].preference = 1
-            
+
