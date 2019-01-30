@@ -44,7 +44,7 @@ class Network(Model):
                 "radical_opinions": compute_radical_opinions,
                 "community_no": community_no,
                 "community_all": community_all,
-                "silent_spiral": compute_silent_spiral
+                "silent_spiral": compute_silent_spiral,
                 "echo_no": echo_no
                 # "graph": return_network
             },
