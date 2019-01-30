@@ -150,6 +150,14 @@ def community_all(model):
         coms.append([pop_opi, pop_pref, count])
     return coms
 
+def echo_no(model):
+    coms = community_all(model)
+    counter = 0
+    for c in coms:
+        if(c[0]>=1-model.echo_threshold or c[0]<=model.echo_threshold): counter += 1
+    return counter
+
+
 def community_no(model):
     community_partitions = get_communities(model)
     return max(community_partitions.values())+1
@@ -168,3 +176,4 @@ def set_opinion():
         return 0
     else:
         return 1
+
