@@ -12,7 +12,7 @@ from heapq import nlargest
 
 class Network(Model):
 
-    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N, echo_threshold):  
+    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N, echo_threshold, all_majority=False):  
         self.num_agents = N
         self.G = select_network_type(network_type, N, no_of_neighbors, beta_component) #nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
         self.grid = NetworkGrid(self.G)
@@ -25,7 +25,9 @@ class Network(Model):
         self.social_influence = social_influence
         self.swingers = swingers
         self.malicious_N = malicious_N
+        self.malistious = []
         self.echo_threshold = echo_threshold
+        self.all_majority = all_majority
 	   # Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
         nx.set_edge_attributes(self.G, 2, 'total_encounters')
         nx.set_edge_attributes(self.G, 1, 'times_agreed')
@@ -82,7 +84,19 @@ class Network(Model):
         self.perturb_network()
         self.schedule.step()
         self.step_no +=1
+<<<<<<< HEAD
+        for a in self.malistious:
+            a.opinion = 0
+            a.preference = 1
+            neigbors_nodes = self.model.grid.get_neighbors(self.pos, include_center = False)
+            neighbors = self.model.grid.get_cell_list_contents(neigbors_nodes)
+            for neighbor in neighbors:
+                self.model.G.edges[self.pos,neighbor.pos]['reputation'] = 1
+            
+        # print(nx.get_edge_attributes(self.G, 'reputation'))
+=======
         # print(nx.get_edge_attributes(self.G, 'trust'))
+>>>>>>> 5ca08f3e2d9180c1f6b61c3eb7c4b90cb490ed52
 
     def perturb_network(self):
         agent_nodes = np.random.randint(self.num_agents, size=(1,self.swingers))
@@ -98,4 +112,5 @@ class Network(Model):
         for a in most_central:
             self.G.nodes()[a]["agent"][0].opinion = 0
             self.G.nodes()[a]["agent"][0].preference = 1
+            self.malistious.append(self.G.nodes()[a]["agent"][0])
 

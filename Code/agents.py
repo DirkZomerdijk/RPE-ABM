@@ -8,8 +8,11 @@ class agent(Agent):
 
     def __init__(self, unique_id, model):
         super().__init__(unique_id, model)
+        if self.model.all_majority==True:
+            self.opinion = 1
+        else:
+            self.opinion = set_opinion()
         self.preference = set_rand_unifrom_preference()
-        self.opinion = set_opinion()
         # print(self.preference)
 
     
