@@ -1,6 +1,6 @@
 from model import *  # omit this in jupyter notebooks
 
-network = Network(N=100, no_of_neighbors=3, network_type=2, beta_component=.3, similarity_treshold=.025, social_influence=0.01, swingers=1, malicious_N=3, echo_threshold=0.25, all_majority=True)
+network = Network(N=100, no_of_neighbors=3, network_type=2, beta_component=.3, similarity_treshold=.025, social_influence=0.01, swingers=1, malicious_N=5, echo_threshold=0.25, all_majority=True)
 
 for i in range(100):
 	network.step()
