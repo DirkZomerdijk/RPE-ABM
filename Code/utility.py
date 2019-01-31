@@ -69,10 +69,10 @@ def compute_opinions(model):
     opinionB = sum(agent_opinions)
     opinionA = model.num_agents - sum(agent_opinions)
 
-    ratio = max([opinionA,opinionB])/min([opinionA,opinionB])
-    print(ratio)
+    difference = max([opinionA,opinionB])/model.num_agents
+    
 
-    return ratio
+    return difference
 
 #computes average preference of agents with opinion 
 def compute_preference_A(model):
