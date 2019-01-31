@@ -12,7 +12,7 @@ class agent(Agent):
         self.preference = get_rand_preference()
         self.type = get_type()
         self.convincing_power = type_dict[self.type]
-        self.reputation = set_reputation()
+        self.trust = set_trust()
 
 
     def talk(self):
@@ -23,7 +23,7 @@ class agent(Agent):
         # Share expecatition with neighbors
         for neighbor in neighbors:
 
-            payoff_matrix = get_payoff_matrix(self.reputation, neighbor.reputation, self.convincing_power, neighbor.convincing_power)
+            payoff_matrix = get_payoff_matrix(self.trust, neighbor.trust, self.convincing_power, neighbor.convincing_power)
             game = nash.Game(payoff_matrix)
 
             print(payoff_matrix)
@@ -70,13 +70,13 @@ def get_rand_preference():
 def get_type():
     return random.choice(type_list)
 
-def set_reputation():
+def set_trust():
     return random.uniform(0,5)
 
-def get_payoff_matrix(reputationA,reputationB,convincing_powerA,convincing_powerB):
-    # return np.array([[ [reputationA, convincing_powerA], [reputationB,convincing_powerB]],
- #             [[convincing_powerA, reputationB], [convincing_powerA, convincing_powerB]] ] )
-    return np.array([[reputationA, convincing_powerA], [reputationB,convincing_powerB]])
+def get_payoff_matrix(trustA,trustB,convincing_powerA,convincing_powerB):
+    # return np.array([[ [trustA, convincing_powerA], [trustB,convincing_powerB]],
+ #             [[convincing_powerA, trustB], [convincing_powerA, convincing_powerB]] ] )
+    return np.array([[trustA, convincing_powerA], [trustB,convincing_powerB]])
 
 
 import networkx as nx

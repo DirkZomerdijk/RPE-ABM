@@ -60,11 +60,11 @@ class agent(Agent):
 
 
     def choose_neighbors(self, neighbors):
-        """ Choose whitch neighbors to talk with based on reputation"""
+        """ Choose whitch neighbors to talk with based on trust"""
         selected_neighbors = []
         similar_neighbors = []
         for neighbor in neighbors:
-            # reputation = self.model.G.edges[self.pos,neighbor.pos]['times_agreed']/self.model.G.edges[self.pos,neighbor.pos]['total_encounters']
+            # trust = self.model.G.edges[self.pos,neighbor.pos]['times_agreed']/self.model.G.edges[self.pos,neighbor.pos]['total_encounters']
             # neighbor_preference = neighbor.preference
             # own_preference = self.preference
             
@@ -74,28 +74,28 @@ class agent(Agent):
             # neighbor_position  = neighbor.pos
             # own_position = self.pos
 
-            reputation = self.model.G.edges[self.pos,neighbor.pos]['reputation']
+            trust = self.model.G.edges[self.pos,neighbor.pos]['trust']
 
             if((neighbor.opinion == self.opinion) and (abs(neighbor.preference - self.preference) < get_rand_similarity(self.model.similarity_treshold))):
                 similar_neighbors.append(neighbor)
-                self.update_reputation(neighbor.pos)
+                self.update_trust(neighbor.pos)
             else:
                 # print('dissimilar')
                 # print('different opinion')
-                if(reputation > np.random.uniform(0,1)):
+                if(trust > np.random.uniform(0,1)):
                     selected_neighbors.append(neighbor)
-                    self.update_reputation(neighbor.pos)
+                    self.update_trust(neighbor.pos)
 
         if(len(similar_neighbors) != 0):
             return similar_neighbors
         else:
             return selected_neighbors
 
-    def update_reputation(self, neighbor_position):
+    def update_trust(self, neighbor_position):
         # print('update preference')
         self.model.update_edge(self.pos, neighbor_position)
 
-        # print('rep of node ' +str(self.pos)+' and '+str(neighbor.pos)+': ' +str(self.model.G.edges[self.pos, neighbor.pos]['reputation']))
+        # print('rep of node ' +str(self.pos)+' and '+str(neighbor.pos)+': ' +str(self.model.G.edges[self.pos, neighbor.pos]['trust']))
 
     def update_preference(self, neighbors_preference):
         self.preference = self.preference + (self.model.social_influence * sum([(neighbor - self.preference) for neighbor in neighbors_preference]))
@@ -109,7 +109,7 @@ class agent(Agent):
         neighbors = self.model.grid.get_cell_list_contents(neigbors_nodes)
         selected_neighbors = self.choose_neighbors(neighbors)
         self.form_opinion(selected_neighbors)
-        # self.update_neigboring_reputations(selected_neighbors)
+        # self.update_neigboring_trusts(selected_neighbors)
 
         # new_preference = mean_neighbor_preference(neighbors)
         # self.preference = new_preference
