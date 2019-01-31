@@ -65,7 +65,14 @@ def compute_preferences(model):
 
 def compute_opinions(model):
     agent_opinions = [agent.opinion for agent in model.schedule.agents]
-    return np.mean(agent_opinions)
+
+    opinionB = sum(agent_opinions)
+    opinionA = model.num_agents - sum(agent_opinions)
+
+    ratio = max([opinionA,opinionB])/min([opinionA,opinionB])
+    print(ratio)
+
+    return ratio
 
 #computes average preference of agents with opinion 
 def compute_preference_A(model):
