@@ -65,6 +65,10 @@ def compute_preferences(model):
 
 def compute_opinions(model):
     agent_opinions = [agent.opinion for agent in model.schedule.agents]
+    return np.mean(agent_opinions)
+
+def compute_majority_opinions(model):
+    agent_opinions = [agent.opinion for agent in model.schedule.agents]
 
     opinionB = sum(agent_opinions)
     opinionA = model.num_agents - sum(agent_opinions)

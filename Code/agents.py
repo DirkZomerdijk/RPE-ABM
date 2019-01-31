@@ -64,15 +64,6 @@ class agent(Agent):
         selected_neighbors = []
         similar_neighbors = []
         for neighbor in neighbors:
-            # trust = self.model.G.edges[self.pos,neighbor.pos]['times_agreed']/self.model.G.edges[self.pos,neighbor.pos]['total_encounters']
-            # neighbor_preference = neighbor.preference
-            # own_preference = self.preference
-            
-            # neighbor_opinion = neighbor.opinion
-            # own_opinion = self.opinion
-
-            # neighbor_position  = neighbor.pos
-            # own_position = self.pos
 
             trust = self.model.G.edges[self.pos,neighbor.pos]['trust']
 

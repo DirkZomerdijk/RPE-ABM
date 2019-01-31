@@ -78,7 +78,7 @@ class Network(Model):
     def step(self):
         # nx.draw(self.G, pos=nx.spring_layout(self.G))
         # plt.show()
-        self.datacollector.collect(self)
+        # self.datacollector.collect(self)
         self.perturb_network()
         self.schedule.step()
         self.step_no +=1
