@@ -37,11 +37,11 @@ class Network(Model):
 
         self.set_malicious()
         
-        self.datacollector = DataCollector(
-            model_reporters={
+#        self.datacollector = DataCollector(
+#            model_reporters={
 #                 "preferences": compute_preferences,
 #                 "percentage_majority_opinion": compute_majority_opinions,
-                "percentage_opinion": compute_opinions
+#                "percentage_opinion": compute_opinions
 #                 "preference_A": compute_preference_A,
 #                 "preference_B": compute_preference_B,
 #                 "radical_opinions": compute_radical_opinions,
@@ -49,11 +49,11 @@ class Network(Model):
 #                 "community_all": community_all,
 #                 "silent_spiral": compute_silent_spiral,
 #                 "echo_no": echo_no
-                # "graph": return_network
-            },
-            agent_reporters={
-                "preference": "preference",
-            }) 
+#                # "graph": return_network
+#            },
+#            agent_reporters={
+#                "preference": "preference",
+#            }) 
 
         self.running = True
         # return_network(self)
@@ -81,7 +81,7 @@ class Network(Model):
     def step(self):
         # nx.draw(self.G, pos=nx.spring_layout(self.G))
         # plt.show()
-        self.datacollector.collect(self)
+#        self.datacollector.collect(self)
         self.perturb_network()
         self.schedule.step()
         self.step_no +=1
