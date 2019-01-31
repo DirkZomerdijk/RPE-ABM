@@ -12,7 +12,7 @@ from operator import itemgetter
 def get_preference_list(N):
     preference_list = []
     for i in range(N):
-        preference_list.append(set_trust())
+        preference_list.append(set_reputation())
 
     return preference_list
 
@@ -43,11 +43,11 @@ def get_rand_similarity(similarity_treshold):
 def set_type():
     return random.choice(type_list)
 
-def set_trust():
+def set_reputation():
     return random.uniform(0,10)
 
-def get_payoff_matrix(trustA,trustB,convincing_powerA,convincing_powerB):
-    return np.array([[trustA, convincing_powerA], [trustB,convincing_powerB]])
+def get_payoff_matrix(reputationA,reputationB,convincing_powerA,convincing_powerB):
+    return np.array([[reputationA, convincing_powerA], [reputationB,convincing_powerB]])
 
 
 def play_game(payoff_matrix):
@@ -99,8 +99,8 @@ def return_network(model):
     nodes_B = []
     nodes_preferences_A = []
     nodes_preferences_B = []
-    trusts = list(nx.get_edge_attributes(model.G,'trust').values())
-    # print(trusts)
+    reputations = list(nx.get_edge_attributes(model.G,'reputation').values())
+    # print(reputations)
     # model.layout = nx.spring_layout(model.G, dim=2)
 
     for node in model.G.nodes():
@@ -119,7 +119,7 @@ def return_network(model):
     fig = plt.figure(dpi=500)
     nx.draw_networkx_nodes(model.G, model.layout, node_size=1, node_color=nodes_preferences_A, nodelist=nodes_A, cmap=plt.cm.Blues)
     nx.draw_networkx_nodes(model.G, model.layout, node_size=1, node_color=nodes_preferences_B, nodelist=nodes_B, cmap=plt.cm.Reds)
-    nx.draw_networkx_edges(model.G, model.layout, alpha=0.5, width=[(rep) for rep in trusts])
+    nx.draw_networkx_edges(model.G, model.layout, alpha=0.5, width=[(rep) for rep in reputations])
     plt.axis('off')
 
 
@@ -133,7 +133,7 @@ def return_network(model):
     # plt.show()
 
 def get_communities(model):
-    return best_partition(model.G, weight='trust')
+    return best_partition(model.G, weight='reputation')
 
 #From largest to smallest. Default largest community.
 def community_all(model):
@@ -199,7 +199,7 @@ def compute_silent_spiral(model):
         
 
         for neighbor_node in neighbors_nodes:
-            connectivity += model.G.edges[node,neighbor_node]['trust']
+            connectivity += model.G.edges[node,neighbor_node]['reputation']
 
         # node_information.append([node, node_opinion,connectivity/connections])
         node_information.append([node, node_opinion,connectivity])
@@ -221,12 +221,12 @@ def compute_silent_spiral(model):
     # print([1 if node[1] == major else 0 for node in node_information[:int(len(node_information)*.05)]])
     perc_of_major = sum([1 if node[1] == major else 0 for node in node_information[:int(len(node_information)*.05)]])/int(model.num_agents*.1)
     return perc_of_major
-        # node_trusts[node]['opinion'] = node_opinion
+        # node_reputations[node]['opinion'] = node_opinion
         # if node_opinion == 0:
         #     # print()
-        #     maj_min['A'].append((node,node_trusts[node]))
+        #     maj_min['A'].append((node,node_reputations[node]))
         # else:
-        #     maj_min['B'].append((node,node_trusts[node]))
+        #     maj_min['B'].append((node,node_reputations[node]))
 
     # if len(maj_min['A']) > len(maj_min['B']):
     #     major = 'A'
@@ -237,7 +237,7 @@ def compute_silent_spiral(model):
 
     # major_
 
-    # print(node_trusts)
+    # print(node_reputations)
     # print()
     # print(maj_min)
     # print()

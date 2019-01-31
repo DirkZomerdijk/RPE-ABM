@@ -31,7 +31,7 @@ class Network(Model):
 	   # Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
         nx.set_edge_attributes(self.G, 2, 'total_encounters')
         nx.set_edge_attributes(self.G, 1, 'times_agreed')
-        nx.set_edge_attributes(self.G, .5, 'trust')
+        nx.set_edge_attributes(self.G, .5, 'reputation')
         
         self.place_agents()
 
@@ -39,15 +39,15 @@ class Network(Model):
         
         self.datacollector = DataCollector(
             model_reporters={
-                "preferences": compute_preferences,
-                "percentage_majority_opinion": compute_opinions,
-                "preference_A": compute_preference_A,
-                "preference_B": compute_preference_B,
-                "radical_opinions": compute_radical_opinions,
-                "community_no": community_no,
-                "community_all": community_all,
-                "silent_spiral": compute_silent_spiral,
-                "echo_no": echo_no
+#                 "preferences": compute_preferences,
+                "percentage_majority_opinion": compute_opinions
+#                 "preference_A": compute_preference_A,
+#                 "preference_B": compute_preference_B,
+#                 "radical_opinions": compute_radical_opinions,
+#                 "community_no": community_no,
+#                 "community_all": community_all,
+#                 "silent_spiral": compute_silent_spiral,
+#                 "echo_no": echo_no
                 # "graph": return_network
             },
             agent_reporters={
@@ -64,7 +64,7 @@ class Network(Model):
             self.grid.place_agent(a, self.node_list[i])
             self.schedule.add(a)
 
-    # Update trust between nodes
+    # Update reputation between nodes
     def update_edge(self, node1, node2):
         # Get opinion of agents
         opinionA = self.G.nodes()[node1]['agent'][0].opinion
@@ -75,7 +75,7 @@ class Network(Model):
         if(opinionA == opinionB):
             self.G.edges[node1, node2]['times_agreed'] += 1
 
-        self.G.edges[node1, node2]['trust'] = self.G.edges[node1, node2]['times_agreed'] /  self.G.edges[node1, node2]['total_encounters']      
+        self.G.edges[node1, node2]['reputation'] = self.G.edges[node1, node2]['times_agreed'] /  self.G.edges[node1, node2]['total_encounters']      
 
     def step(self):
         # nx.draw(self.G, pos=nx.spring_layout(self.G))
@@ -84,19 +84,15 @@ class Network(Model):
         self.perturb_network()
         self.schedule.step()
         self.step_no +=1
-<<<<<<< HEAD
         for a in self.malistious:
             a.opinion = 0
             a.preference = 1
-            neigbors_nodes = self.model.grid.get_neighbors(self.pos, include_center = False)
-            neighbors = self.model.grid.get_cell_list_contents(neigbors_nodes)
+            neigbors_nodes = self.grid.get_neighbors(a.pos, include_center = False)
+            neighbors = self.grid.get_cell_list_contents(neigbors_nodes)
             for neighbor in neighbors:
-                self.model.G.edges[self.pos,neighbor.pos]['reputation'] = 1
+                self.G.edges[a.pos,neighbor.pos]['reputation'] = 1
             
         # print(nx.get_edge_attributes(self.G, 'reputation'))
-=======
-        # print(nx.get_edge_attributes(self.G, 'trust'))
->>>>>>> 5ca08f3e2d9180c1f6b61c3eb7c4b90cb490ed52
 
     def perturb_network(self):
         agent_nodes = np.random.randint(self.num_agents, size=(1,self.swingers))
