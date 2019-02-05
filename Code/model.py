@@ -1,9 +1,20 @@
+'''
+Wolf-Sheep Predation Model
+================================
+Replication of the model found in NetLogo:
+    Wilensky, U. (1997). NetLogo Wolf Sheep Predation model.
+    http://ccl.northwestern.edu/netlogo/models/WolfSheepPredation.
+    Center for Connected Learning and Computer-Based Modeling,
+    Northwestern University, Evanston, IL.
+'''
+
 from globals import *
+from agents import *
+from utility import *
+from analysis import *
 import networkx as nx
 from mesa import Agent, Model
 from mesa.time import RandomActivation
-from agents import *
-from utility import *
 from mesa.space import NetworkGrid
 from mesa.datacollection import DataCollector
 from heapq import nlargest
@@ -11,8 +22,25 @@ from heapq import nlargest
 
 
 class Network(Model):
-
-    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N, echo_threshold, all_majority=False):  
+    '''
+    Wolf-Sheep Predation Model
+    '''
+    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N, echo_threshold, all_majority, opinions):  
+        '''
+        Create a new Wolf-Sheep model with the given parameters.
+        Args:
+            initial_sheep: Number of sheep to start with
+            initial_wolves: Number of wolves to start with
+            sheep_reproduce: Probability of each sheep reproducing each step
+            wolf_reproduce: Probability of each wolf reproducing each step
+            wolf_gain_from_food: Energy a wolf gains from eating a sheep
+            grass: Whether to have the sheep eat grass for energy
+            grass_regrowth_time: How long it takes for a grass patch to regrow
+                                 once it is eaten
+            sheep_gain_from_food: Energy sheep gain from grass, if enabled.
+        '''
+        super().__init__()
+        # Set parameters
         self.num_agents = N
         self.G = select_network_type(network_type, N, no_of_neighbors, beta_component) #nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
         self.grid = NetworkGrid(self.G)
@@ -25,30 +53,33 @@ class Network(Model):
         self.social_influence = social_influence
         self.swingers = swingers
         self.malicious_N = malicious_N
-        self.malistious = []
+        self.malicious = []
         self.echo_threshold = echo_threshold
         self.all_majority = all_majority
+        self.opinions = opinions
 	   # Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
         nx.set_edge_attributes(self.G, 2, 'total_encounters')
         nx.set_edge_attributes(self.G, 1, 'times_agreed')
         nx.set_edge_attributes(self.G, .5, 'trust')
         
+        # Create sheep:
         self.place_agents()
 
+        # Create sheep:
         self.set_malicious()
         
         self.datacollector = DataCollector(
            model_reporters={
-                # "preferences": compute_preferences,
+                "preferences": compute_preferences,
                 "percentage_majority_opinion": compute_majority_opinions,
-                # "percentage_opinion": compute_opinions
+                "percentage_opinion": compute_opinions,
                 # "preference_A": compute_preference_A,
                 # "preference_B": compute_preference_B,
-                # "radical_opinions": compute_radical_opinions,
-                # "community_no": community_no,
-                # "community_all": community_all,
-                # "silent_spiral": compute_silent_spiral,
-                # "echo_no": echo_no
+                "radical_opinions": compute_radical_opinions,
+                "community_no": community_no,
+                "silent_spiral": compute_silent_spiral,
+                "echo_no": echo_no,
+                "average_trust": average_trust,
                # "graph": return_network
            },
            agent_reporters={
@@ -56,7 +87,7 @@ class Network(Model):
            }) 
 
         self.running = True
-        # return_network(self)
+
 
     # place agents on network
     def place_agents(self):
@@ -68,33 +99,14 @@ class Network(Model):
     # Update trust between nodes
     def update_edge(self, node1, node2):
         # Get opinion of agents
-        opinionA = self.G.nodes()[node1]['agent'][0].opinion
-        opinionB = self.G.nodes()[node2]['agent'][0].opinion   
-
         self.G.edges[node1, node2]['total_encounters'] += 1
         # If agents share opinion, edge strength increases
-        if(opinionA == opinionB):
+        if(self.G.nodes()[node1]['agent'][0].opinion == self.G.nodes()[node2]['agent'][0].opinion ):
             self.G.edges[node1, node2]['times_agreed'] += 1
 
         self.G.edges[node1, node2]['trust'] = self.G.edges[node1, node2]['times_agreed'] /  self.G.edges[node1, node2]['total_encounters']      
 
-    def step(self):
-        # nx.draw(self.G, pos=nx.spring_layout(self.G))
-        # plt.show()
-        self.datacollector.collect(self)
-        self.perturb_network()
-        self.schedule.step()
-        self.step_no +=1
-        for a in self.malistious:
-            a.opinion = 0
-            a.preference = 1
-            neigbors_nodes = self.grid.get_neighbors(a.pos, include_center = False)
-            neighbors = self.grid.get_cell_list_contents(neigbors_nodes)
-            for neighbor in neighbors:
-                self.G.edges[a.pos,neighbor.pos]['trust'] = 1
             
-        # print(nx.get_edge_attributes(self.G, 'trust'))
-
     def perturb_network(self):
         agent_nodes = np.random.randint(self.num_agents, size=(1,self.swingers))
         for node in agent_nodes:
@@ -109,5 +121,19 @@ class Network(Model):
         for a in most_central:
             self.G.nodes()[a]["agent"][0].opinion = 0
             self.G.nodes()[a]["agent"][0].preference = 1
-            self.malistious.append(self.G.nodes()[a]["agent"][0])
+            self.malicious.append(self.G.nodes()[a]["agent"][0])
+
+    def step(self):
+        # collect data
+        self.datacollector.collect(self)
+        self.perturb_network()
+        self.schedule.step()
+        for a in self.malicious:
+            a.opinion = 0
+            a.preference = 1
+            neigbors_nodes = self.grid.get_neighbors(a.pos, include_center = False)
+            neighbors = self.grid.get_cell_list_contents(neigbors_nodes)
+            for neighbor in neighbors:
+                self.G.edges[a.pos,neighbor.pos]['trust'] = 1
+        self.step_no +=1
 

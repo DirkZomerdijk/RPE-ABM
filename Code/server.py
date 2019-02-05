@@ -9,11 +9,13 @@ from globals import *
 
 def network_portrayal(G):
 
+  colors = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33']
+
   portrayal = dict()
   portrayal['nodes'] = [{ 'id': node_id,
                           'Shape': 'circle',
                           'size': 0.2 ,
-                          'color': '#caeab7' if not agents or agents[0].opinion == 0 else '#e38783',
+                          'color': colors[agents[0].opinion],
                           # 'label': 'Agent:{} preference:{}'.format(agents[0].unique_id, agents[0].preference),
                           # 'label': 'preference:{0:.2f}'.format(agents[0].preference),
                           'label': 'opinion:{0:.2f}'.format(agents[0].opinion),
@@ -60,7 +62,9 @@ model_params = {
     "social_influence":social_influence_slider,
     "swingers": swingers_slider,
     "malicious_N": malicious_slider,
-    "echo_threshold": echo_slider
+    "echo_threshold": echo_slider,
+    "all_majority":False,
+    "opinions":6
 }  
 
 server = ModularServer(Network, [grid,chart], "NetworkModel", model_params) 

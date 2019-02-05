@@ -3,64 +3,64 @@ from utility import *
 import matplotlib.pyplot as plt
 import random
 from globals import *
+from itertools import groupby
+import operator
+
 class agent(Agent):
-    """ An agent with fixed initial preference and opinion."""
+    '''
+    A sheep that walks around, reproduces (asexually) and gets eaten.
+    The init is the same as the RandomWalker.
+    '''
 
     def __init__(self, unique_id, model):
         super().__init__(unique_id, model)
-        if self.model.all_majority==True:
-            self.opinion = 1
-        else:
-            self.opinion = set_opinion()
+        self.opinion = random.randint(0,self.model.opinions-1)
         self.preference = set_rand_unifrom_preference()
-        # print(self.preference)
 
-    
-    def select_A(self, A_preference):
-        """ Adapt preference score and opinion to A"""
-        if self.opinion == 1:
-            self.preference = 1 - self.preference
-        
-        self.opinion = 0
-        self.update_preference(A_preference)
 
-    def select_B(self, B_preference):
+    def select_opinion(self, preferences, switch_opinion, new_opinion):
         """ Adapt preference score and opinion to A"""
-        if self.opinion == 0:
+
+        if switch_opinion:
             self.preference = 1 - self.preference
 
-        self.opinion = 1
-        self.update_preference(B_preference)
+        self.opinion = new_opinion
+        self.update_preference(preferences)
 
     def form_opinion(self, neighbors):
+
         """ Function to determine if opninion needs to be adapted based on neighbors""" 
-        neighbor_preference = []
-        A_preference = []
-        B_preference = []
+        neighbor_preferences = [neighbor.preference for neighbor in neighbors]
+        neighbor_opinion_preferences = [[] for i in range(self.model.opinions)]
+        probability_rates = []
+        opinions = list(range(self.model.opinions))
 
 
+        # get_attr = operator.attrgetter('opinion')
+        # neighbor_opinion_preferences = [[i.preference for i in list(g)] for k, g in groupby(sorted(neighbors, key=get_attr), get_attr)]
+        
         for neighbor in neighbors:
-            neighbor_preference.append(neighbor.preference)
-            if neighbor.opinion == 0:
-                A_preference.append(neighbor.preference)
+            for opinion in range(self.model.opinions):
+                if neighbor.opinion == opinion:
+                    neighbor_opinion_preferences[opinion].append(neighbor.preference)
+
+        for opinion in range(self.model.opinions):
+
+            if len(neighbor_opinion_preferences[opinion])!=0:
+                probability_rates.append(sum(neighbor_opinion_preferences[opinion])/sum(neighbor_preferences))
             else:
-                B_preference.append(neighbor.preference)
+                probability_rates.append(0)
+        
+        max_opinion_idx = probability_rates.index(max(probability_rates))            
 
-        if( len(neighbor_preference) != 0):
-            probability_rate_A = sum(A_preference)/sum(neighbor_preference)
-            probability_rate_B = sum(B_preference)/sum(neighbor_preference)
-
-            if (self.opinion == 0) and (probability_rate_B < self.preference):
-                self.select_A(A_preference)
-            
-            elif (self.opinion == 1) and (probability_rate_A < self.preference):
-                self.select_B(B_preference)
-
-            elif random.uniform(0,1) < probability_rate_A:
-                self.select_A(A_preference)
-            else:
-                self.select_B(B_preference)
-
+        if (probability_rates[max_opinion_idx]  < (self.preference*2)/self.model.opinions) and self.opinion != max_opinion_idx:
+            return self.select_opinion(neighbor_opinion_preferences[self.opinion], switch_opinion = False, new_opinion = self.opinion)
+        else:
+            dice = random.uniform(0,1)
+            for idx, prob in enumerate(probability_rates):
+                dice = dice - prob
+                if dice <= 0:
+                    return self.select_opinion(neighbor_opinion_preferences[idx], switch_opinion = True, new_opinion = idx)
 
     def choose_neighbors(self, neighbors):
         """ Choose whitch neighbors to talk with based on trust"""
@@ -86,10 +86,7 @@ class agent(Agent):
             return selected_neighbors
 
     def update_trust(self, neighbor_position):
-        # print('update preference')
         self.model.update_edge(self.pos, neighbor_position)
-
-        # print('rep of node ' +str(self.pos)+' and '+str(neighbor.pos)+': ' +str(self.model.G.edges[self.pos, neighbor.pos]['trust']))
 
     def update_preference(self, neighbors_preference):
         self.preference = self.preference + (self.model.social_influence * sum([(neighbor - self.preference) for neighbor in neighbors_preference]))
@@ -103,16 +100,6 @@ class agent(Agent):
         neighbors = self.model.grid.get_cell_list_contents(neigbors_nodes)
         selected_neighbors = self.choose_neighbors(neighbors)
         self.form_opinion(selected_neighbors)
-        # self.update_neigboring_trusts(selected_neighbors)
-
-        # new_preference = mean_neighbor_preference(neighbors)
-        # self.preference = new_preference
-        # print(self.preference)
 
     def step(self):
-        # self.preference += 1
         self.talk()
-        # print(self.unique_id)
-    # def get_neighbours(self):
-
-    # def get_neigbor_nodes():
