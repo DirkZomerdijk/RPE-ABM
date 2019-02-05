@@ -14,6 +14,7 @@ agent_preference = network.datacollector.get_model_vars_dataframe()
 # print(agent_preference)
 print(network.datacollector.get_model_vars_dataframe())
 
+
 # # run
 # from server import server
 # server.port = 8261 # The default

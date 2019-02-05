@@ -68,23 +68,23 @@ class Network(Model):
         # Create sheep:
         self.set_malicious()
         
-        self.datacollector = DataCollector(
-           model_reporters={
-                "preferences": compute_preferences,
-                "percentage_majority_opinion": compute_majority_opinions,
-                "percentage_opinion": compute_opinions,
-                # "preference_A": compute_preference_A,
-                # "preference_B": compute_preference_B,
-                "radical_opinions": compute_radical_opinions,
-                "community_no": community_no,
-                "silent_spiral": compute_silent_spiral,
-                "echo_no": echo_no,
-                "average_trust": average_trust,
-               # "graph": return_network
-           },
-           agent_reporters={
-               "preference": "preference",
-           }) 
+        # self.datacollector = DataCollector(
+        #    model_reporters={
+        #         # "preferences": compute_preferences,
+        #         # "percentage_majority_opinion": compute_majority_opinions,
+        #         # "percentage_opinion": compute_opinions,
+        #         # # "preference_A": compute_preference_A,
+        #         # # "preference_B": compute_preference_B,
+        #         # "radical_opinions": compute_radical_opinions,
+        #         # "community_no": community_no,
+        #         # "silent_spiral": compute_silent_spiral,
+        #         # "echo_no": echo_no,
+        #         # "average_trust": average_trust,
+        #        # "graph": return_network
+        #    },
+        #    agent_reporters={
+        #        "preference": "preference",
+        #    }) 
 
         self.running = True
 
@@ -125,15 +125,18 @@ class Network(Model):
 
     def step(self):
         # collect data
-        self.datacollector.collect(self)
+        # self.datacollector.collect(self)
         self.perturb_network()
         self.schedule.step()
-        for a in self.malicious:
-            a.opinion = 0
-            a.preference = 1
-            neigbors_nodes = self.grid.get_neighbors(a.pos, include_center = False)
-            neighbors = self.grid.get_cell_list_contents(neigbors_nodes)
-            for neighbor in neighbors:
-                self.G.edges[a.pos,neighbor.pos]['trust'] = 1
+
+        if(self.malicious_N > 0):
+            for a in self.malicious:
+                a.opinion = 0
+                a.preference = 1
+                neigbors_nodes = self.grid.get_neighbors(a.pos, include_center = False)
+                neighbors = self.grid.get_cell_list_contents(neigbors_nodes)
+                for neighbor in neighbors:
+                    self.G.edges[a.pos,neighbor.pos]['trust'] = 1
+
         self.step_no +=1
 
