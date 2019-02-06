@@ -4,6 +4,7 @@ from community.community_louvain import best_partition
 from collections import Counter
 import numpy as np
 from operator import itemgetter
+import copy
 
 def compute_preferences(model):
     agent_preferences = [agent.preference for agent in model.schedule.agents]
@@ -37,6 +38,46 @@ def compute_majority_opinion(agents):
     difference = max(opinion_sizes)/len(agents) 
 
     return difference
+
+def compute_echo_chamber(model):
+    # print("compute_echo_chamber")
+    # print(nx.is_directed(model.G))
+    hidden = hide_edges(model)
+    # print(nx.enumerate_all_cliques(hidden.G))
+
+    cliques = list(nx.enumerate_all_cliques(hidden.G))
+    # print(vars(model.G.nodes[0]))
+    cliques = [[model.G.nodes()[node]["agent"][0].opinion for node in clique] for clique in cliques if len(clique)>2]
+    echo_chambers = [echo for echo in cliques if len(set(echo)) == 1]
+    if len(echo_chambers)>0:
+        model.sizes_of_echochambers = Counter([len(chamber) for chamber in echo_chambers])
+        model.no_of_echochambers = len(echo_chambers)/model.cliques
+    print(model.sizes_of_echochambers)
+    
+    return len(cliques)
+
+def echochamber_size(model):
+    return model.sizes_of_echochambers
+
+def echochamber_count(model):
+    return model.no_of_echochambers
+
+def hide_edges(input):
+    model = copy.deepcopy(input)
+    # print(model)
+    # print(input)
+    # print(len(model.G.edges()))
+    edges = []
+    for edge in model.G.edges():
+        # print(model.G.edges[edge])
+        if model.G.edges[edge]["trust"] < model.echo_limit:
+            edges.append(edge)
+    # print(edges)
+    model.G.remove_edges_from(edges)
+    return model
+
+
+
 
 # #computes average preference of agents with opinion 
 # def compute_preference_A(model):

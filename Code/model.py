@@ -25,7 +25,7 @@ class Network(Model):
     '''
     Wolf-Sheep Predation Model
     '''
-    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N, echo_threshold, all_majority, opinions):  
+    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N, echo_threshold, all_majority, opinions, echo_limit):  
         '''
         Create a new Wolf-Sheep model with the given parameters.
         Args:
@@ -57,6 +57,11 @@ class Network(Model):
         self.echo_threshold = echo_threshold
         self.all_majority = all_majority
         self.opinions = opinions
+        self.no_of_echochambers = 0
+        self.sizes_of_echochambers = 0
+        self.cliques = len(list(nx.enumerate_all_cliques(self.G)))
+        self.echo_limit = echo_limit
+
 	   # Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
         nx.set_edge_attributes(self.G, 2, 'total_encounters')
         nx.set_edge_attributes(self.G, 1, 'times_agreed')
@@ -81,7 +86,10 @@ class Network(Model):
                 # "echo_no": echo_no,
                 # "average_trust": average_trust,
                # "graph": return_network
-               "compute_transitivity":compute_transitivity
+            #    "compute_transitivity":compute_transitivity,
+            "compute_echo_chamber":compute_echo_chamber,
+            "echochamber_size":echochamber_size,
+            "echochamber_count":echochamber_count
            },
            agent_reporters={
                "preference": "preference",
@@ -112,6 +120,9 @@ class Network(Model):
         agent_nodes = np.random.randint(self.num_agents, size=(1,self.swingers))
         for node in agent_nodes:
             agent = self.G.nodes()[np.random.randint(self.num_agents)]['agent'][0]
+            edges = self.G.edges(node)
+            for edge in edges:
+                self.G.edges[edge]["trust"] = set_rand_unifrom_preference()
             agent.opinion = np.random.randint(2)
             agent.preference = set_rand_unifrom_preference()
 
@@ -126,7 +137,7 @@ class Network(Model):
 
     def step(self):
         # collect data
-        # self.datacollector.collect(self)
+        self.datacollector.collect(self)
         self.perturb_network()
         self.schedule.step()
 
