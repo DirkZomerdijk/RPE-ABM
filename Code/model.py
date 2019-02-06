@@ -25,7 +25,7 @@ class Network(Model):
     '''
     Wolf-Sheep Predation Model
     '''
-    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N, echo_threshold, all_majority, opinions, echo_limit):  
+    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N, all_majority, opinions, echo_limit):  
         '''
         Create a new Wolf-Sheep model with the given parameters.
         Args:
@@ -54,7 +54,6 @@ class Network(Model):
         self.swingers = swingers
         self.malicious_N = malicious_N
         self.malicious = []
-        self.echo_threshold = echo_threshold
         self.all_majority = all_majority
         self.opinions = opinions
         self.no_of_echochambers = 0
