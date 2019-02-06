@@ -52,7 +52,7 @@ def compute_echo_chamber(model):
     if len(echo_chambers)>0:
         model.sizes_of_echochambers = Counter([len(chamber) for chamber in echo_chambers])
         model.no_of_echochambers = len(echo_chambers)/model.cliques
-    print(model.sizes_of_echochambers)
+    # print(model.sizes_of_echochambers)
     
     return len(cliques)
 
