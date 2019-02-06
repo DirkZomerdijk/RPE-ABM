@@ -16,6 +16,10 @@ def compute_opinions(model):
     else:
         return 'opinions>2'
 
+def compute_transitivity(model):
+    print(nx.average_clustering(model.G, nodes=None, weight="trust", count_zeros=True))
+    return nx.average_clustering(model.G, nodes=None, weight="trust", count_zeros=True)
+
 def compute_majority_opinions(model):
     agent_opinions = [agent.opinion for agent in model.schedule.agents]
     agent_opinions = Counter(agent_opinions)
