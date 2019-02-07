@@ -72,27 +72,27 @@ class Network(Model):
         # Create sheep:
         self.set_malicious()
         
-        self.datacollector = DataCollector(
-           model_reporters={
-                # "preferences": compute_preferences,
-                # "percentage_majority_opinion": compute_majority_opinions,
-                # "percentage_opinion": compute_opinions,
-                # # "preference_A": compute_preference_A,
-                # # "preference_B": compute_preference_B,
-                # "radical_opinions": compute_radical_opinions,
-                # "community_no": community_no,
-                # "silent_spiral": compute_silent_spiral,
-                # "echo_no": echo_no,
-                # "average_trust": average_trust,
-               # "graph": return_network
-            #    "compute_transitivity":compute_transitivity,
-            "compute_echo_chamber":compute_echo_chamber,
-            "echochamber_size":echochamber_size,
-            "echochamber_count":echochamber_count
-           },
-           agent_reporters={
-               "preference": "preference",
-           }) 
+        # self.datacollector = DataCollector(
+        #    model_reporters={
+        #         # "preferences": compute_preferences,
+        #         # "percentage_majority_opinion": compute_majority_opinions,
+        #         # "percentage_opinion": compute_opinions,
+        #         # # "preference_A": compute_preference_A,
+        #         # # "preference_B": compute_preference_B,
+        #         # "radical_opinions": compute_radical_opinions,
+        #         # "community_no": community_no,
+        #         # "silent_spiral": compute_silent_spiral,
+        #         # "echo_no": echo_no,
+        #         # "average_trust": average_trust,
+        #        # "graph": return_network
+        #     #    "compute_transitivity":compute_transitivity,
+        #     "compute_echo_chamber":compute_echo_chamber,
+        #     "echochamber_size":echochamber_size,
+        #     "echochamber_count":echochamber_count
+        #    },
+        #    agent_reporters={
+        #        "preference": "preference",
+        #    }) 
 
         self.running = True
 
@@ -136,7 +136,7 @@ class Network(Model):
 
     def step(self):
         # collect data
-        self.datacollector.collect(self)
+        # self.datacollector.collect(self)
         self.perturb_network()
         self.schedule.step()
 
