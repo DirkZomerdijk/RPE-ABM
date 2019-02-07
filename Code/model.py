@@ -25,7 +25,7 @@ class Network(Model):
     '''
     Wolf-Sheep Predation Model
     '''
-    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N, all_majority, opinions, echo_limit):  
+    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N, all_majority, opinions, echo_limit, seed=None):  
         '''
         Create a new Wolf-Sheep model with the given parameters.
         Args:
@@ -42,7 +42,8 @@ class Network(Model):
         super().__init__()
         # Set parameters
         self.num_agents = N
-        self.G = select_network_type(network_type, N, no_of_neighbors, beta_component) #nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
+        self.seed = seed
+        self.G = self.select_network_type(network_type, N, no_of_neighbors, beta_component) #nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
         self.grid = NetworkGrid(self.G)
         self.schedule = RandomActivation(self)
         # self.node_positions = nx.spring_layout(self.G)
@@ -61,6 +62,7 @@ class Network(Model):
         self.cliques = len(list(nx.enumerate_all_cliques(self.G)))
         self.echo_limit = echo_limit
 
+
 	   # Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
         nx.set_edge_attributes(self.G, 2, 'total_encounters')
         nx.set_edge_attributes(self.G, 1, 'times_agreed')
@@ -72,30 +74,38 @@ class Network(Model):
         # Create sheep:
         self.set_malicious()
         
-        self.datacollector = DataCollector(
-           model_reporters={
-                # "preferences": compute_preferences,
-                # "percentage_majority_opinion": compute_majority_opinions,
-                # "percentage_opinion": compute_opinions,
-                # # "preference_A": compute_preference_A,
-                # # "preference_B": compute_preference_B,
-                # "radical_opinions": compute_radical_opinions,
-                # "community_no": community_no,
-                # "silent_spiral": compute_silent_spiral,
-                # "echo_no": echo_no,
-                # "average_trust": average_trust,
-               # "graph": return_network
-            #    "compute_transitivity":compute_transitivity,
-            "compute_echo_chamber":compute_echo_chamber,
-            "echochamber_size":echochamber_size,
-            "echochamber_count":echochamber_count
-           },
-           agent_reporters={
-               "preference": "preference",
-           }) 
+        # self.datacollector = DataCollector(
+        #    model_reporters={
+        #         # "preferences": compute_preferences,
+        #         # "percentage_majority_opinion": compute_majority_opinions,
+        #         # "percentage_opinion": compute_opinions,
+        #         # # "preference_A": compute_preference_A,
+        #         # # "preference_B": compute_preference_B,
+        #         # "radical_opinions": compute_radical_opinions,
+        #         # "community_no": community_no,
+        #         # "silent_spiral": compute_silent_spiral,
+        #         # "echo_no": echo_no,
+        #         # "average_trust": average_trust,
+        #        # "graph": return_network
+        #     #    "compute_transitivity":compute_transitivity,
+        #     "compute_echo_chamber":compute_echo_chamber,
+        #     "echochamber_size":echochamber_size,
+        #     "echochamber_count":echochamber_count
+        #    },
+        #    agent_reporters={
+        #        "preference": "preference",
+        #    }) 
 
         self.running = True
 
+    def select_network_type(self, network_type, N, no_of_neighbors, beta_component):
+        # print(network_type)
+        if(network_type == 1):
+            # print('watts_strogatz')
+            return nx.watts_strogatz_graph(N, no_of_neighbors, beta_component, seed=None)
+        elif(network_type == 2):
+            # print('barabasi_albert')
+            return nx.barabasi_albert_graph(N, no_of_neighbors, seed=None)
 
     # place agents on network
     def place_agents(self):
@@ -136,7 +146,7 @@ class Network(Model):
 
     def step(self):
         # collect data
-        self.datacollector.collect(self)
+        # self.datacollector.collect(self)
         self.perturb_network()
         self.schedule.step()
 
