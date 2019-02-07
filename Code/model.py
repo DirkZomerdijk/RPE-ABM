@@ -25,7 +25,7 @@ class Network(Model):
     '''
     Wolf-Sheep Predation Model
     '''
-    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N, all_majority, opinions, echo_limit):  
+    def __init__(self, N, no_of_neighbors, network_type, beta_component, similarity_treshold, social_influence, swingers, malicious_N, all_majority, opinions, echo_limit, seed=None):  
         '''
         Create a new Wolf-Sheep model with the given parameters.
         Args:
@@ -42,7 +42,8 @@ class Network(Model):
         super().__init__()
         # Set parameters
         self.num_agents = N
-        self.G = select_network_type(network_type, N, no_of_neighbors, beta_component) #nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
+        self.seed = seed
+        self.G = self.select_network_type(network_type, N, no_of_neighbors, beta_component) #nx.watts_strogatz_graph(N, no_of_neighbors, rand_neighbors, seed=None)
         self.grid = NetworkGrid(self.G)
         self.schedule = RandomActivation(self)
         # self.node_positions = nx.spring_layout(self.G)
@@ -60,6 +61,7 @@ class Network(Model):
         self.sizes_of_echochambers = 0
         self.cliques = len(list(nx.enumerate_all_cliques(self.G)))
         self.echo_limit = echo_limit
+
 
 	   # Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
         nx.set_edge_attributes(self.G, 2, 'total_encounters')
@@ -96,6 +98,14 @@ class Network(Model):
 
         self.running = True
 
+    def select_network_type(self, network_type, N, no_of_neighbors, beta_component):
+        # print(network_type)
+        if(network_type == 1):
+            # print('watts_strogatz')
+            return nx.watts_strogatz_graph(N, no_of_neighbors, beta_component, seed=None)
+        elif(network_type == 2):
+            # print('barabasi_albert')
+            return nx.barabasi_albert_graph(N, no_of_neighbors, seed=None)
 
     # place agents on network
     def place_agents(self):

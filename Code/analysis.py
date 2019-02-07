@@ -18,7 +18,7 @@ def compute_opinions(model):
         return 'opinions>2'
 
 def compute_transitivity(model):
-    print(nx.average_clustering(model.G, nodes=None, weight="trust", count_zeros=True))
+    # print(nx.average_clustering(model.G, nodes=None, weight="trust", count_zeros=True))
     return nx.average_clustering(model.G, nodes=None, weight="trust", count_zeros=True)
 
 def compute_majority_opinions(model):
@@ -147,15 +147,6 @@ def echo_no(model):
 def community_no(model):
     community_partitions = get_communities(model)
     return max(community_partitions.values())+1
-
-def select_network_type(network_type, N, no_of_neighbors, beta_component):
-    # print(network_type)
-    if(network_type == 1):
-        # print('watts_strogatz')
-        return nx.watts_strogatz_graph(N, no_of_neighbors, beta_component, seed=None)
-    elif(network_type == 2):
-        # print('barabasi_albert')
-        return nx.barabasi_albert_graph(N, no_of_neighbors, seed=None)
 
 def compute_silent_spiral(model):
 
