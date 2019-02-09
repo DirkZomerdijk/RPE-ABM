@@ -63,7 +63,7 @@ class Network(Model):
         self.echo_limit = echo_limit
 
 
-	   # Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
+	    # Initialy set to 1 agreement and 1 agreement to avoid 100%/0% probability scenrarios
         nx.set_edge_attributes(self.G, 2, 'total_encounters')
         nx.set_edge_attributes(self.G, 1, 'times_agreed')
         nx.set_edge_attributes(self.G, .5, 'trust')
@@ -74,32 +74,35 @@ class Network(Model):
         # Create sheep:
         self.set_malicious()
         
-        # self.datacollector = DataCollector(
-        #    model_reporters={
-        #         # "preferences": compute_preferences,
-        #         # "percentage_majority_opinion": compute_majority_opinions,
-        #         # "percentage_opinion": compute_opinions,
-        #         # # "preference_A": compute_preference_A,
-        #         # # "preference_B": compute_preference_B,
-        #         # "radical_opinions": compute_radical_opinions,
-        #         # "community_no": community_no,
-        #         # "silent_spiral": compute_silent_spiral,
-        #         # "echo_no": echo_no,
-        #         # "average_trust": average_trust,
-        #        # "graph": return_network
-        #     #    "compute_transitivity":compute_transitivity,
-        #     "compute_echo_chamber":compute_echo_chamber,
-        #     "echochamber_size":echochamber_size,
-        #     "echochamber_count":echochamber_count
-        #    },
+        self.datacollector = DataCollector(
+           model_reporters={
+                # "preferences": compute_preferences,
+                "percentage_majority_opinion": compute_majority_opinions,
+                # "percentage_opinion": compute_opinions,
+                # # "preference_A": compute_preference_A,
+                # # "preference_B": compute_preference_B,
+                # "radical_opinions": compute_radical_opinions,
+                # "community_no": community_no,
+                # "silent_spiral": compute_silent_spiral,
+                # "echo_no": echo_no,
+                # "average_trust": average_trust,
+                # "graph": return_network
+                # "compute_transitivity":compute_transitivity,
+                # "compute_echo_chamber":compute_echo_chamber,
+                # "echochamber_size":echochamber_size,
+                # "echochamber_count":echochamber_count,
+                "malicious_N":compute_malicious_N,
+                "self.step_no":compute_step_no
+
+            },
         #    agent_reporters={
         #        "preference": "preference",
-        #    }) 
+        #    }
+            ) 
 
         self.running = True
 
     def select_network_type(self, network_type, N, no_of_neighbors, beta_component):
-        # print(network_type)
         if(network_type == 1):
             # print('watts_strogatz')
             return nx.watts_strogatz_graph(N, no_of_neighbors, beta_component, seed=None)
@@ -146,7 +149,7 @@ class Network(Model):
 
     def step(self):
         # collect data
-        # self.datacollector.collect(self)
+        self.datacollector.collect(self)
         self.perturb_network()
         self.schedule.step()
 

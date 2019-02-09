@@ -76,7 +76,11 @@ def hide_edges(input):
     model.G.remove_edges_from(edges)
     return model
 
+def compute_malicious_N(model):
+    return model.malicious_N
 
+def compute_step_no(model):
+    return model.step_no
 
 
 # #computes average preference of agents with opinion 
