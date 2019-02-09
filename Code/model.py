@@ -149,7 +149,7 @@ class Network(Model):
 
     def step(self):
         # collect data
-        self.datacollector.collect(self)
+        # self.datacollector.collect(self)
         self.perturb_network()
         self.schedule.step()
 
