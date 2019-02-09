@@ -81,16 +81,16 @@ class Network(Model):
                 # "percentage_opinion": compute_opinions,
                 # # "preference_A": compute_preference_A,
                 # # "preference_B": compute_preference_B,
-                # "radical_opinions": compute_radical_opinions,
+                "radical_opinions": compute_radical_opinions,
                 # "community_no": community_no,
                 # "silent_spiral": compute_silent_spiral,
                 # "echo_no": echo_no,
                 # "average_trust": average_trust,
                 # "graph": return_network
-                # "compute_transitivity":compute_transitivity,
-                # "compute_echo_chamber":compute_echo_chamber,
-                # "echochamber_size":echochamber_size,
-                # "echochamber_count":echochamber_count,
+                "compute_transitivity":compute_transitivity,
+                "compute_echo_chamber":compute_echo_chamber,
+                "echochamber_size":echochamber_size,
+                "echochamber_count":echochamber_count,
                 "malicious_N":compute_malicious_N,
                 "self.step_no":compute_step_no
 
